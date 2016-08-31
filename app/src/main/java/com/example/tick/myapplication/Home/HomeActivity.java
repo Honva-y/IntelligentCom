@@ -34,17 +34,17 @@ public class HomeActivity extends Fragment implements View.OnClickListener{
 
     private void initView() {
         repair = (ImageView) view.findViewById(R.id.home_iv_repair);
-        post = (ImageView) view.findViewById(R.id.home_iv_post);
-        education = (ImageView) view.findViewById(R.id.home_iv_education);
-        housekeeping = (ImageView) view.findViewById(R.id.home_iv_housekeeping);
-        school = (ImageView) view.findViewById(R.id.home_iv_school);
-        oldmanhome = (ImageView) view.findViewById(R.id.home_iv_oldmanhome);
+//        post = (ImageView) view.findViewById(R.id.home_iv_post);
+//        education = (ImageView) view.findViewById(R.id.home_iv_education);
+//        housekeeping = (ImageView) view.findViewById(R.id.home_iv_housekeeping);
+//        school = (ImageView) view.findViewById(R.id.home_iv_school);
+//        oldmanhome = (ImageView) view.findViewById(R.id.home_iv_oldmanhome);
         repair.setOnClickListener(this);
-        post.setOnClickListener(this);
-        education.setOnClickListener(this);
-        housekeeping.setOnClickListener(this);
-        school.setOnClickListener(this);
-        oldmanhome.setOnClickListener(this);
+//        post.setOnClickListener(this);
+//        education.setOnClickListener(this);
+//        housekeeping.setOnClickListener(this);
+//        school.setOnClickListener(this);
+//        oldmanhome.setOnClickListener(this);
     }
 
     @Override
@@ -56,31 +56,31 @@ public class HomeActivity extends Fragment implements View.OnClickListener{
                 intent.putExtra("title","自助修理");
                 startActivity(intent);
                 break;
-            case R.id.home_iv_post:
-                intent = new Intent(getContext(),PostActivity.class);
-                intent.putExtra("title","上门寄件");
-                startActivity(intent);
-                break;
-            case R.id.home_iv_education:
-                intent = new Intent(getContext(),EducationActivity.class);
-                intent.putExtra("title","家教培训");
-                startActivity(intent);
-                break;
-            case R.id.home_iv_housekeeping:
-                intent = new Intent(getContext(),HouseKeepingActivity.class);
-                intent.putExtra("title","家政上门");
-                startActivity(intent);
-                break;
-            case R.id.home_iv_school:
-                intent = new Intent(getContext(),SchoolActivity.class);
-                intent.putExtra("title","入学办理");
-                startActivity(intent);
-                break;
-            case R.id.home_iv_oldmanhome:
-                intent = new Intent(getContext(),OldManHomeActivity.class);
-                intent.putExtra("title","老人之家");
-                startActivity(intent);
-                break;
+//            case R.id.home_iv_post:
+//                intent = new Intent(getContext(),PostActivity.class);
+//                intent.putExtra("title","上门寄件");
+//                startActivity(intent);
+//                break;
+//            case R.id.home_iv_education:
+//                intent = new Intent(getContext(),EducationActivity.class);
+//                intent.putExtra("title","家教培训");
+//                startActivity(intent);
+//                break;
+//            case R.id.home_iv_housekeeping:
+//                intent = new Intent(getContext(),HouseKeepingActivity.class);
+//                intent.putExtra("title","家政上门");
+//                startActivity(intent);
+//                break;
+//            case R.id.home_iv_school:
+//                intent = new Intent(getContext(),SchoolActivity.class);
+//                intent.putExtra("title","入学办理");
+//                startActivity(intent);
+//                break;
+//            case R.id.home_iv_oldmanhome:
+//                intent = new Intent(getContext(),OldManHomeActivity.class);
+//                intent.putExtra("title","老人之家");
+//                startActivity(intent);
+//                break;
         }
     }
 }
