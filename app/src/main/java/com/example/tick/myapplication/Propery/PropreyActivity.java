@@ -45,18 +45,22 @@ public class PropreyActivity extends Fragment implements View.OnClickListener{
             case R.id.propery_ll_payment:
                 intent = new Intent(getContext(),PaymentActivity.class);
                 intent.putExtra("title","物业缴费");
-                break;
-            case R.id.propery_ll_booksee:
-                intent = new Intent(getContext(),RecordActivity.class);
-                intent.putExtra("title","缴费记录");
+                startActivity(intent);
                 break;
             case R.id.propery_ll_record:
+                intent = new Intent(getContext(),RecordActivity.class);
+                intent.putExtra("title","缴费记录");
+                startActivity(intent);
+                break;
+            case R.id.propery_ll_booksee:
                 intent = new Intent(getContext(),BookseeActivity.class);
                 intent.putExtra("title","预约看房");
+                startActivity(intent);
                 break;
             case R.id.propery_ll_suggest:
                 intent = new Intent(getContext(),SuggestActivity.class);
                 intent.putExtra("title","投诉建议");
+                startActivity(intent);
                 break;
         }
     }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="@dimen/title_height">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="费用时间"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:text="2016.8.1.-2016.9.1"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:layout_height="match_parent">
+    </TextView>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:src="@mipmap/more"
+        android:padding="15dp"
+        >
+    </ImageView>
+</LinearLayout>
