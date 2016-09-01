@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">莱福</string>
+    <string name="menu_topic">小区话题</string>
+    <string name="menu_interactive">小区互动</string>
+    <string name="menu_secondhand">二手转让</string>
 </resources>

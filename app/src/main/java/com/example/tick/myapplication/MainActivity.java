@@ -1,12 +1,14 @@
 package com.example.tick.myapplication;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,16 +34,18 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private TextView tv_home,tv_proprey,tv_mine,tv_topic;
     private ImageView iv_home,iv_proprey,iv_mine,iv_topic;
     private FragmentPagerAdapter pagerAdapter;
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//取消标题栏
         setContentView(R.layout.activity_main);
+
         initView();
     }
 
     private void initView() {
+
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         home = (LinearLayout) findViewById(R.id.home);
         proprey = (LinearLayout) findViewById(R.id.propery);
@@ -61,7 +65,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         iv_proprey = (ImageView) findViewById(R.id.main_iv_proprey);
         iv_topic = (ImageView) findViewById(R.id.main_iv_topic);
         iv_mine = (ImageView) findViewById(R.id.main_iv_mine);
-
         fragments = new ArrayList<>();
         fragments.add(homeActivity);
         fragments.add(propreyActivity);
@@ -123,5 +126,27 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         iv_proprey.setImageResource(R.mipmap.propery0);
         iv_topic.setImageResource(R.mipmap.topic0);
         iv_mine.setImageResource(R.mipmap.mine0);
+    }
+    //菜单按钮
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+    //菜单选择
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.main_menu_topic:
+                Toast.makeText(MainActivity.this, "话题", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.main_menu_interactive:
+                Toast.makeText(MainActivity.this, "互动", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.main_menu_secondhand:
+                Toast.makeText(MainActivity.this, "二手", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

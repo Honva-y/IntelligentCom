@@ -4,14 +4,14 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/colorBlue"></solid>
             <corners android:radius="5dp"></corners>
-            <padding android:top="10dp" android:bottom="10dp"></padding>
+            <padding android:top="5dp" android:bottom="5dp"></padding>
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <solid android:color="@color/colorBluePress"></solid>
             <corners android:radius="5dp"></corners>
-            <padding android:top="10dp" android:bottom="10dp"></padding>
+            <padding android:top="5dp" android:bottom="5dp"></padding>
         </shape>
     </item>
 </selector>

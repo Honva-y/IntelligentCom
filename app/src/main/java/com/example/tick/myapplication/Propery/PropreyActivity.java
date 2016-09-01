@@ -17,7 +17,7 @@ import com.example.tick.myapplication.R;
  */
 public class PropreyActivity extends Fragment implements View.OnClickListener{
     private View view;
-    private LinearLayout payment,booksee,record,suggest;
+    private LinearLayout payment,record,suggest;//booksee,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,12 +28,12 @@ public class PropreyActivity extends Fragment implements View.OnClickListener{
 
     private void initView() {
         payment = (LinearLayout) view.findViewById(R.id.propery_ll_payment);
-        booksee = (LinearLayout) view.findViewById(R.id.propery_ll_booksee);
+//        booksee = (LinearLayout) view.findViewById(R.id.propery_ll_booksee);
         record = (LinearLayout) view.findViewById(R.id.propery_ll_record);
         suggest = (LinearLayout) view.findViewById(R.id.propery_ll_suggest);
         //设置监听
         payment.setOnClickListener(this);
-        booksee.setOnClickListener(this);
+//        booksee.setOnClickListener(this);
         record.setOnClickListener(this);
         suggest.setOnClickListener(this);
     }
@@ -52,11 +52,11 @@ public class PropreyActivity extends Fragment implements View.OnClickListener{
                 intent.putExtra("title","缴费记录");
                 startActivity(intent);
                 break;
-            case R.id.propery_ll_booksee:
-                intent = new Intent(getContext(),BookseeActivity.class);
-                intent.putExtra("title","预约看房");
-                startActivity(intent);
-                break;
+//            case R.id.propery_ll_booksee:
+//                intent = new Intent(getContext(),BookseeActivity.class);
+//                intent.putExtra("title","预约看房");
+//                startActivity(intent);
+//                break;
             case R.id.propery_ll_suggest:
                 intent = new Intent(getContext(),SuggestActivity.class);
                 intent.putExtra("title","投诉建议");

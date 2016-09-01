@@ -14,9 +14,11 @@ import com.example.tick.myapplication.R;
  * Created by Tick on 2016/8/29.
  */
 public class TopicActivity extends Fragment {
+    private View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_topic,container,false);
+        view =  inflater.inflate(R.layout.activity_topic,container,false);
+        return view;
     }
 }
