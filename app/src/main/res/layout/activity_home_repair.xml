@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/many_top_back_title" />
+    <include layout="@layout/many_top_back_title" android:id="@+id/many" />
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="1dp"
+        android:id="@+id/iv_line"
+        android:layout_below="@+id/many"
         android:background="@color/colorLine" />
 
     <LinearLayout
+        android:layout_below="@+id/iv_line"
+        android:id="@+id/ll_phone"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
@@ -23,10 +25,10 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/many_color_clickl"
             android:text="手机号码"
-            android:textSize="@dimen/title_text_size" />
+            android:textSize="@dimen/text_small_size" />
 
         <TextView
             android:layout_width="0dp"
@@ -36,149 +38,129 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="*******2709"
-            android:textSize="@dimen/title_text_size" />
+            android:textSize="@dimen/text_small_size" />
     </LinearLayout>
 
     <ImageView
+        android:layout_below="@+id/ll_phone"
+        android:id="@+id/iv_line_1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorLine" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
+    <!--  <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="2">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="报修事项"
-            android:textSize="@dimen/title_text_size" />
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="3"
+              android:gravity="center_vertical"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:text="报修事项"
+              android:textSize="@dimen/title_text_size" />
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:background="@null"
-            android:paddingLeft="5dp"
-            android:maxLines="1"
-            android:textColorHint="@color/colorLine"
-            android:paddingRight="5dp"
-            android:hint="请输入需要保修的事项..."
-            />
-    </LinearLayout>
+          <EditText
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="7"
+              android:background="@null"
+              android:paddingLeft="5dp"
+              android:maxLines="1"
+              android:textColorHint="@color/colorLine"
+              android:paddingRight="5dp"
+              android:hint="请输入需要保修的事项..."
+              />
+      </LinearLayout>-->
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine" />
 
     <LinearLayout
+        android:id="@+id/ll_time"
+        android:layout_below="@id/iv_line_1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
-
+        android:layout_height="wrap_content"
+        >
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:text="上门修理时间"
-            android:textSize="@dimen/content_text_size" />
+            android:textSize="@dimen/text_small_size" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
             android:gravity="center_vertical">
-
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="2016年"
-                android:textSize="@dimen/content_text_size" />
-
-            <EditText
+                android:id="@+id/repair_tv_date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
+                android:layout_weight="3"
+                android:hint="点击选择时间"
+                android:textSize="@dimen/text_normal_size"
                 android:gravity="center"
-                android:inputType="number"
-                android:maxLength="2"
-                android:hint="？"
-                android:textSize="@dimen/title_text_size"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/many_color_clickl"
                 />
-
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="月"
-                android:textSize="@dimen/content_text_size" />
-
-            <EditText
+                android:id="@+id/repair_tv_time"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:hint="选择时段"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="@dimen/text_small_size"
                 android:gravity="center"
-                android:inputType="number"
-                android:maxLength="2"
-                android:hint="？"
-                android:textSize="@dimen/title_text_size" />
+                android:background="@drawable/many_color_clickl"
+                android:layout_height="match_parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="日"
-                android:textSize="@dimen/content_text_size" />
-
-            <Spinner
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@null"></Spinner>
         </LinearLayout>
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/iv_line_2"
+        android:layout_below="@id/ll_time"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorLine" />
 
     <ScrollView
+        android:id="@+id/sc_content"
+        android:layout_below="@+id/iv_line_2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8">
+        android:layout_height="200dp"
+        >
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@null"
-            android:hint="描述详细,我们可以给您更周到的服务...."
+            android:hint="描述详细,我们可以给您更周到的服务.."
+            android:lineSpacingExtra="1.2dp"
             android:lineSpacingMultiplier="1.2"
             android:padding="5dp"
-            android:paddingLeft="10dp"
-            android:lineSpacingExtra="1.2dp"
-            android:layout_margin="10dp"
-            android:textSize="@dimen/content_text_size" />
+            android:paddingLeft="15dp"
+            android:textSize="@dimen/text_small_size" />
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/bt"
+        android:layout_below="@id/sc_content"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:background="@color/colorLine"
+        android:layout_height="wrap_content"
+        android:background="@color/colorback"
+        android:layout_marginBottom="20dp"
         android:gravity="center_vertical">
 
         <Button
@@ -192,4 +174,4 @@
             android:textColor="@color/white"
             android:textSize="@dimen/button_text_size" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

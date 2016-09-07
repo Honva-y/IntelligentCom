@@ -7,14 +7,13 @@
     <LinearLayout
         android:id="@+id/propery_ll_payment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="@drawable/many_color_clickl"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="center"
             android:text="物业缴费"
@@ -45,8 +44,7 @@
     <LinearLayout
         android:id="@+id/propery_ll_record"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="@drawable/many_color_clickl"
         android:orientation="horizontal">
 
@@ -110,13 +108,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:background="#e2e2e2"
+        android:background="@color/colorback"
         />
     <LinearLayout
         android:id="@+id/propery_ll_suggest"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="@drawable/many_color_clickl"
         android:orientation="horizontal">
 

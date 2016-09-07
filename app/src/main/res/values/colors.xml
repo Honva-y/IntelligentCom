@@ -3,8 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorExit">#FF4081</color>
+    <color name="colorRed">#FF4081</color>
     <color name="colorBlue">#5e86f2</color>
+    <color name="colorGreen">#008000</color>
     <color name="colorBluePress">#4270ee</color>
     <color name="colorText">#757575</color>
     <color name="colorLine">#e2e2e2</color>

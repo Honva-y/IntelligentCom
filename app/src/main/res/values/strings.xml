@@ -3,4 +3,6 @@
     <string name="menu_topic">小区话题</string>
     <string name="menu_interactive">小区互动</string>
     <string name="menu_secondhand">二手转让</string>
+    <string name="repair_morning">早上   9:00-12:00</string>
+    <string name="repair_afternoon">下午   15:00-18:00</string>
 </resources>

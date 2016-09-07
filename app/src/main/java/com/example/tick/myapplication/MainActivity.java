@@ -1,15 +1,19 @@
 package com.example.tick.myapplication;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,59 +21,87 @@ import android.widget.Toast;
 
 import com.example.tick.myapplication.Home.HomeActivity;
 import com.example.tick.myapplication.Mine.MineActivity;
+import com.example.tick.myapplication.Mine.model.UserIcon;
 import com.example.tick.myapplication.Propery.PropreyActivity;
 import com.example.tick.myapplication.Topic.TopicActivity;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
     private List<Fragment> fragments;
-    private ViewPager viewPager;
     private HomeActivity homeActivity;
     private MineActivity mineActivity;
     private PropreyActivity propreyActivity;
     private TopicActivity topicActivity;
-    private LinearLayout home,proprey,mine,topic;
-    private TextView tv_home,tv_proprey,tv_mine,tv_topic;
-    private ImageView iv_home,iv_proprey,iv_mine,iv_topic;
     private FragmentPagerAdapter pagerAdapter;
-    private Toolbar toolbar;
+    private static final int TAKE_PHOTO = 1;
+    private static final int CHOSE_PICTURE = 2;
+    private static final int CROP_PHOTO = 3;
+//    private Uri tempUri;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
+    //导航栏布局
+    @BindView(R.id.home)
+    LinearLayout home;
+    @BindView(R.id.propery)
+    LinearLayout proprey;
+    @BindView(R.id.mine)
+    LinearLayout mine;
+    @BindView(R.id.topic)
+    LinearLayout topic;
+    //导航栏文字
+    @BindView(R.id.main_tv_home)
+    TextView tv_home;
+    @BindView(R.id.main_tv_proprey)
+    TextView tv_proprey;
+    @BindView(R.id.main_tv_mine)
+    TextView tv_mine;
+    @BindView(R.id.main_tv_topic)
+    TextView tv_topic;
+    //导航栏图片
+    @BindView(R.id.main_iv_home)
+    ImageView iv_home;
+    @BindView(R.id.main_iv_proprey)
+    ImageView iv_proprey;
+    @BindView(R.id.main_iv_mine)
+    ImageView iv_mine;
+    @BindView(R.id.main_iv_topic)
+    ImageView iv_topic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//取消标题栏
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);//取消标题栏
         setContentView(R.layout.activity_main);
-
+        ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        home = (LinearLayout) findViewById(R.id.home);
-        proprey = (LinearLayout) findViewById(R.id.propery);
-        topic = (LinearLayout) findViewById(R.id.topic);
-        mine = (LinearLayout) findViewById(R.id.mine);
         homeActivity = new HomeActivity();
         mineActivity = new MineActivity();
         propreyActivity = new PropreyActivity();
         topicActivity = new TopicActivity();
-        //导航栏文字
-        tv_home = (TextView) findViewById(R.id.main_tv_home);
-        tv_proprey = (TextView) findViewById(R.id.main_tv_proprey);
-        tv_topic= (TextView) findViewById(R.id.main_tv_topic);
-        tv_mine = (TextView) findViewById(R.id.main_tv_mine);
-        //导航栏图片
-        iv_home = (ImageView) findViewById(R.id.main_iv_home);
-        iv_proprey = (ImageView) findViewById(R.id.main_iv_proprey);
-        iv_topic = (ImageView) findViewById(R.id.main_iv_topic);
-        iv_mine = (ImageView) findViewById(R.id.main_iv_mine);
+
         fragments = new ArrayList<>();
         fragments.add(homeActivity);
         fragments.add(propreyActivity);
         fragments.add(topicActivity);
         fragments.add(mineActivity);
+        //配置适配器
         pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -92,7 +124,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     @Override
     public void onPageSelected(int position) {
         reSetTextColor();
-        switch (position){
+        switch (position) {
             case 0:
                 iv_home.setImageResource(R.mipmap.home1);
                 tv_home.setTextColor(Color.parseColor("#5e86f2"));
@@ -116,37 +148,103 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     public void onPageScrollStateChanged(int state) {
 
     }
+
     //重新设置字体的颜色，图片
-    public void reSetTextColor(){
-        tv_home.setTextColor(Color.parseColor("#757575"));
-        tv_proprey.setTextColor(Color.parseColor("#757575"));
-        tv_topic.setTextColor(Color.parseColor("#757575"));
-        tv_mine.setTextColor(Color.parseColor("#757575"));
+    public void reSetTextColor() {
+        tv_home.setTextColor(getResources().getColor(R.color.colorText));
+        tv_proprey.setTextColor(getResources().getColor(R.color.colorText));
+        tv_topic.setTextColor(getResources().getColor(R.color.colorText));
+        tv_mine.setTextColor(getResources().getColor(R.color.colorText));
         iv_home.setImageResource(R.mipmap.home0);
         iv_proprey.setImageResource(R.mipmap.propery0);
         iv_topic.setImageResource(R.mipmap.topic0);
         iv_mine.setImageResource(R.mipmap.mine0);
     }
-    //菜单按钮
+    //设置图片保存的路径
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        return true;
-    }
-    //菜单选择
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.main_menu_topic:
-                Toast.makeText(MainActivity.this, "话题", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.main_menu_interactive:
-                Toast.makeText(MainActivity.this, "互动", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.main_menu_secondhand:
-                Toast.makeText(MainActivity.this, "二手", Toast.LENGTH_SHORT).show();
-                break;
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(this, "取消拍照", Toast.LENGTH_SHORT).show();
         }
-        return super.onOptionsItemSelected(item);
+        switch (requestCode) {
+            case TAKE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                    File file = new File(path,UserIcon.getInstance().getImageName());
+                    InputStream is = null;
+                    try {
+                        is = new FileInputStream(file);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    mineActivity.setUsericon(bitmap);
+//                    Intent intent = new Intent("com.android.camera.action.CROP");
+//                    intent.setDataAndType(UserIcon.getInstance().getImageUri(), "image/*");
+//                    intent.putExtra("crop", true);
+//                    intent.putExtra("return-data", true);
+//                    intent.putExtra("aspectX", 1);
+//                    intent.putExtra("aspectY", 1);
+//                    intent.putExtra("outputX", 40);
+//                    intent.putExtra("outputY", 40);
+//                    tempUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/" + "small.jpg");
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+//                    startActivityForResult(intent, CROP_PHOTO);
+                }
+                break;
+            case CHOSE_PICTURE:
+                if(data!=null && resultCode==RESULT_OK)
+                {
+                    //获取bitmap
+                    Uri selectUri = data.getData();
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                    Cursor cursor = getContentResolver().query(selectUri,filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    //bitmap转换成file文件
+                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+                    BufferedOutputStream bos = null;
+                    try {
+                        //文件路径
+                        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                        //参数一，哪文件夹下，参数二文件名字
+                        File file = new File(path,UserIcon.getInstance().getImageName());
+                        try {
+                            if (file.exists()) {
+                                file.delete();
+                            }
+                            file.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        bos = new BufferedOutputStream(new FileOutputStream(file));
+                        bitmap.compress(Bitmap.CompressFormat.JPEG,100,bos);
+                        bos.flush();
+                        bos.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    mineActivity.setUsericon(bitmap);
+                }
+                break;
+            case CROP_PHOTO:
+                //路径默认
+//                if (data.hasExtra("data")) {
+//                    //设置图片
+//                    mineActivity.setUsericon((Bitmap) data.getParcelableExtra("data"));
+//                }
+//                try {
+//                    Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(tempUri));
+//                    mineActivity.setUsericon(bitmap);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+                break;
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

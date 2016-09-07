@@ -1,6 +1,5 @@
 package com.example.tick.myapplication.Home;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,15 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.tick.myapplication.MainActivity;
 import com.example.tick.myapplication.R;
 
+import java.io.BufferedReader;
+
 import butterknife.BindView;
-import butterknife.OnClick;
+import butterknife.ButterKnife;
 
 /**
  * Created by Tick on 2016/8/29.
@@ -24,10 +22,13 @@ import butterknife.OnClick;
 public class HomeActivity extends Fragment implements View.OnClickListener{
     private ImageView repair,post,education,housekeeping,school,oldmanhome;
     private View view;
+    @BindView(R.id.home_iv_around)
+    ImageView around;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_home, container, false);
+        ButterKnife.bind(this,view);
         initView();
         return view;
     }
@@ -40,6 +41,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener{
 //        school = (ImageView) view.findViewById(R.id.home_iv_school);
 //        oldmanhome = (ImageView) view.findViewById(R.id.home_iv_oldmanhome);
         repair.setOnClickListener(this);
+        around.setOnClickListener(this);
 //        post.setOnClickListener(this);
 //        education.setOnClickListener(this);
 //        housekeeping.setOnClickListener(this);
@@ -54,6 +56,11 @@ public class HomeActivity extends Fragment implements View.OnClickListener{
             case R.id.home_iv_repair:
                 intent = new Intent(getContext(),RepairActivity.class);
                 intent.putExtra("title","自助修理");
+                startActivity(intent);
+                break;
+            case R.id.home_iv_around:
+                intent = new Intent(getContext(),AroundActivity.class);
+                intent.putExtra("title","周边");
                 startActivity(intent);
                 break;
 //            case R.id.home_iv_post:
