@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tick.myapplication.Mine.Presenter.*;
 import com.example.tick.myapplication.R;
@@ -41,11 +40,13 @@ public class MineActivity extends Fragment {
     ImageView usericon;
     @BindView(R.id.mine_tv_nickname)
     TextView tv_nickname;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_mine, container, false);
         ButterKnife.bind(this, view);
+
         initView();
         return view;
     }
@@ -57,6 +58,7 @@ public class MineActivity extends Fragment {
         //判断用户数据
         //头像
         presenter.checkUserIcon();
+        //
     }
 
     //用butterknife注解进行监听
@@ -85,27 +87,27 @@ public class MineActivity extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 getActivity().finish();
-                startActivity(new Intent(getContext(), LoginActivity.class));
+                startActivity(new Intent(getContext(),LoginActivity.class));
             }
         }).setNegativeButton("取消", null).show();
     }
 
     //退出应用
-    @OnClick(R.id.mine_ll_logout)
+    @OnClick(R.id.mine_ll_exit)
     void OnExit() {
         new AlertDialog.Builder(getContext()).setMessage("退出").setPositiveButton("确定", null).setNegativeButton("取消", null).show();
     }
 
     @OnLongClick(R.id.mine_tv_nickname)
     boolean OnNickName() {
-        View layout = LayoutInflater.from(view.getContext()).inflate(R.layout.mine_alertdialog_nickname,null);
+        View layout = LayoutInflater.from(view.getContext()).inflate(R.layout.mine_alertdialog_nickname, null);
         final EditText editText = (EditText) layout.findViewById(R.id.mine_et_nickname);
-       new AlertDialog.Builder(getActivity()).setCancelable(false).setView(layout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialog, int which) {
-               setTv_nickname(editText.getText().toString());
-           }
-       }).setNegativeButton("取消",null).show();
+        new AlertDialog.Builder(getActivity()).setCancelable(false).setView(layout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setTv_nickname(editText.getText().toString());
+            }
+        }).setNegativeButton("取消", null).show();
         return true;
     }
 
@@ -153,6 +155,7 @@ public class MineActivity extends Fragment {
     public void setUsericon(Bitmap bitmap) {
         usericon.setImageBitmap(bitmap);
     }
+
     //设置昵称
     public void setTv_nickname(String name) {
         tv_nickname.setText(name);

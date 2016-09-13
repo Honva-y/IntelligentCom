@@ -16,27 +16,27 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".Home.RepairActivity"></activity>
+        <activity android:name=".User.LoginActivity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Home.View.RepairActivity"></activity>
         <activity android:name=".Home.PostActivity"/>
         <activity android:name=".Home.EducationActivity"/>
         <activity android:name=".Home.HouseKeepingActivity"/>
         <activity android:name=".Home.OldManHomeActivity"/>
         <activity android:name=".Home.SchoolActivity"/>
         <activity android:name=".Home.WarningActivity"/>
-        <activity android:name=".Propery.PaymentActivity"/>
-        <activity android:name=".Propery.RecordActivity"/>
+        <activity android:name=".Propery.PayMent.PaymentActivity"/>
+        <activity android:name=".Propery.Record.RecordActivity"/>
         <activity android:name=".Propery.BookseeActivity"/>
-        <activity android:name=".Propery.SuggestActivity"/>
+        <activity android:name=".Propery.Suggest.SuggestActivity"/>
         <activity android:name=".Mine.ChangePasswordActivity"/>
-        <activity android:name=".User.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".User.RegisterActivity"/>
         <activity android:name=".User.ForgetPwActivity"/>
-        <activity android:name=".Mine.CompleteInfoActivity"/>
+        <activity android:name=".Mine.CompleteInfoActivity" />
         <activity android:name=".Home.AroundActivity"/>
     </application>
 

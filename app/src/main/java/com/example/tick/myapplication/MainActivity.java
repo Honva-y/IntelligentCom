@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +48,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private PropreyActivity propreyActivity;
     private TopicActivity topicActivity;
     private FragmentPagerAdapter pagerAdapter;
+//    private MainPresenter presenter;
     private static final int TAKE_PHOTO = 1;
     private static final int CHOSE_PICTURE = 2;
     private static final int CROP_PHOTO = 3;
@@ -86,6 +88,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);//取消标题栏
         setContentView(R.layout.activity_main);
+//        presenter = new MainPresenter(this);
         ButterKnife.bind(this);
         initView();
     }
@@ -107,18 +110,30 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             public Fragment getItem(int position) {
                 return fragments.get(position);
             }
-
             @Override
             public int getCount() {
                 return fragments.size();
             }
         };
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this);
     }
-
+    @OnClick(R.id.home) void OnClickHome(){
+        viewPager.setCurrentItem(0);
+    }
+    @OnClick(R.id.propery) void OnClickPropery(){
+        viewPager.setCurrentItem(1);
+    }
+    @OnClick(R.id.topic) void OnClickTopic(){
+        viewPager.setCurrentItem(2);
+    }
+    @OnClick(R.id.mine) void OnClickMine(){
+        viewPager.setCurrentItem(3);
+    }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
     }
 
     @Override
@@ -127,19 +142,19 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         switch (position) {
             case 0:
                 iv_home.setImageResource(R.mipmap.home1);
-                tv_home.setTextColor(Color.parseColor("#5e86f2"));
+                tv_home.setTextColor(getResources().getColor(R.color.colorBlue));
                 break;
             case 1:
                 iv_proprey.setImageResource(R.mipmap.proprey1);
-                tv_proprey.setTextColor(Color.parseColor("#5e86f2"));
+                tv_proprey.setTextColor(getResources().getColor(R.color.colorBlue));
                 break;
             case 2:
                 iv_topic.setImageResource(R.mipmap.topic1);
-                tv_topic.setTextColor(Color.parseColor("#5e86f2"));
+                tv_topic.setTextColor(getResources().getColor(R.color.colorBlue));
                 break;
             case 3:
                 iv_mine.setImageResource(R.mipmap.mine1);
-                tv_mine.setTextColor(Color.parseColor("#5e86f2"));
+                tv_mine.setTextColor(getResources().getColor(R.color.colorBlue));
                 break;
         }
     }

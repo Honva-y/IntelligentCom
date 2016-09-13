@@ -9,21 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.tick.myapplication.Home.View.RepairActivity;
 import com.example.tick.myapplication.R;
 
 import java.io.BufferedReader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Tick on 2016/8/29.
  */
-public class HomeActivity extends Fragment implements View.OnClickListener{
-    private ImageView repair,post,education,housekeeping,school,oldmanhome;
+public class HomeActivity extends Fragment{
     private View view;
-    @BindView(R.id.home_iv_around)
-    ImageView around;
+    private Intent intent;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,62 +32,17 @@ public class HomeActivity extends Fragment implements View.OnClickListener{
         initView();
         return view;
     }
-
     private void initView() {
-        repair = (ImageView) view.findViewById(R.id.home_iv_repair);
-//        post = (ImageView) view.findViewById(R.id.home_iv_post);
-//        education = (ImageView) view.findViewById(R.id.home_iv_education);
-//        housekeeping = (ImageView) view.findViewById(R.id.home_iv_housekeeping);
-//        school = (ImageView) view.findViewById(R.id.home_iv_school);
-//        oldmanhome = (ImageView) view.findViewById(R.id.home_iv_oldmanhome);
-        repair.setOnClickListener(this);
-        around.setOnClickListener(this);
-//        post.setOnClickListener(this);
-//        education.setOnClickListener(this);
-//        housekeeping.setOnClickListener(this);
-//        school.setOnClickListener(this);
-//        oldmanhome.setOnClickListener(this);
-    }
 
-    @Override
-    public void onClick(View v) {
-        Intent intent;
-        switch (v.getId()){
-            case R.id.home_iv_repair:
-                intent = new Intent(getContext(),RepairActivity.class);
-                intent.putExtra("title","自助修理");
-                startActivity(intent);
-                break;
-            case R.id.home_iv_around:
-                intent = new Intent(getContext(),AroundActivity.class);
-                intent.putExtra("title","周边");
-                startActivity(intent);
-                break;
-//            case R.id.home_iv_post:
-//                intent = new Intent(getContext(),PostActivity.class);
-//                intent.putExtra("title","上门寄件");
-//                startActivity(intent);
-//                break;
-//            case R.id.home_iv_education:
-//                intent = new Intent(getContext(),EducationActivity.class);
-//                intent.putExtra("title","家教培训");
-//                startActivity(intent);
-//                break;
-//            case R.id.home_iv_housekeeping:
-//                intent = new Intent(getContext(),HouseKeepingActivity.class);
-//                intent.putExtra("title","家政上门");
-//                startActivity(intent);
-//                break;
-//            case R.id.home_iv_school:
-//                intent = new Intent(getContext(),SchoolActivity.class);
-//                intent.putExtra("title","入学办理");
-//                startActivity(intent);
-//                break;
-//            case R.id.home_iv_oldmanhome:
-//                intent = new Intent(getContext(),OldManHomeActivity.class);
-//                intent.putExtra("title","老人之家");
-//                startActivity(intent);
-//                break;
-        }
     }
+@OnClick(R.id.home_iv_repair) void OnRepair(){
+    intent = new Intent(getContext(),RepairActivity.class);
+    intent.putExtra("title","自助修理");
+    startActivity(intent);
+}
+@OnClick(R.id.home_iv_around) void OnAround(){
+    intent = new Intent(getContext(),AroundActivity.class);
+    intent.putExtra("title","周边");
+    startActivity(intent);
+}
 }

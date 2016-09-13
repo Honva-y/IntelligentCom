@@ -5,209 +5,102 @@
     android:orientation="vertical">
 
     <include layout="@layout/many_top_back_title"></include>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="0.5">
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="缴费类型"
+            android:textSize="@dimen/text_normal_size" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="费用时间" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="2016.8.1-2016.9.1"
-            android:paddingLeft="10dp"
-            android:layout_weight="7" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:hint="费用"
+            android:textSize="@dimen/text_normal_size" />
     </LinearLayout>
-    <ImageView
+
+    <in.srain.cube.views.ptr.PtrFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/propery_ptr"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
+        android:layout_height="0dp"
+        android:layout_below="@+id/top_title"
+        android:layout_weight="7"
+        cube_ptr:ptr_duration_to_close="300"
+        cube_ptr:ptr_duration_to_close_header="2000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/payment_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"></android.support.v7.widget.RecyclerView>
+    </in.srain.cube.views.ptr.PtrFrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="0.5">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/payment_cb_select"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:text="全选"
+            android:textColor="@color/colorText" />
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="电费(元)" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:padding="5dp"
+            android:text="总计:" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="300"
-            android:paddingLeft="10dp"
-            android:layout_weight="7" />
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="0.5">
+            android:text="￥"
+            android:textColor="@color/colorRed" />
 
         <TextView
+            android:id="@+id/payment_tv_sum"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="水费(元)" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/colorRed"
+            android:textSize="@dimen/text_normal_size" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="100"
-            android:paddingLeft="10dp"
-            android:layout_weight="7" />
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="0.5">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="燃气费(元)" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="100"
-            android:paddingLeft="10dp"
-            android:layout_weight="7" />
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="0.5">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="网费(元)" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="50"
-            android:paddingLeft="10dp"
-            android:layout_weight="7" />
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="0.5">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="物业管理费(元)" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="80"
-            android:paddingLeft="10dp"
-            android:layout_weight="7" />
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="0.5">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="总费用(元)" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="630"
-            android:paddingLeft="10dp"
-            android:layout_weight="7" />
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5">
         <Button
             android:id="@+id/payment_bt_ok"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
             android:background="@drawable/button_corners_blue"
             android:text="缴 费"
             android:textColor="@color/white"

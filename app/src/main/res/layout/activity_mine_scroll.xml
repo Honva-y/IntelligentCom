@@ -28,7 +28,7 @@
             android:padding="15dp"
             android:text="Tick"
             android:background="@drawable/many_color_clickl"
-            android:textSize="@dimen/title_text_size" />
+            android:textSize="@dimen/text_small_size" />
 
     </LinearLayout>
 
@@ -50,7 +50,7 @@
             android:layout_weight="3"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:textSize="@dimen/text_small_size"
+            android:textSize="@dimen/text_normal_size"
             android:paddingRight="10dp"
             android:text="用户类型" />
 
@@ -85,7 +85,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="账 号"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_normal_size" />
 
         <TextView
             android:layout_width="0dp"
@@ -115,7 +115,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:textSize="@dimen/text_small_size"
+            android:textSize="@dimen/text_normal_size"
             android:text="性  别" />
 
         <TextView
@@ -148,7 +148,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="居住小区"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_normal_size" />
 
         <TextView
             android:layout_width="0dp"
@@ -180,7 +180,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="修改密码"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_normal_size" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -215,7 +215,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="邮  箱"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_normal_size" />
 
         <TextView
             android:layout_width="0dp"
@@ -248,7 +248,7 @@
             android:paddingRight="10dp"
             android:text="信息未完善"
             android:textColor="@color/colorRed"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_normal_size" />
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -281,7 +281,7 @@
             android:paddingRight="10dp"
             android:paddingLeft="20dp"
             android:text="注销"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_normal_size" />
 
     </LinearLayout>
 

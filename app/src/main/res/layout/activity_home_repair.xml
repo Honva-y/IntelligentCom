@@ -4,29 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/many_top_back_title" android:id="@+id/many" />
+    <include
+        android:id="@+id/many"
+        layout="@layout/many_top_back_title" />
 
     <ImageView
+        android:id="@+id/iv_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/iv_line"
         android:layout_below="@+id/many"
         android:background="@color/colorLine" />
 
     <LinearLayout
-        android:layout_below="@+id/iv_line"
         android:id="@+id/ll_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_line"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:background="@drawable/many_color_clickl"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:background="@drawable/many_color_clickl"
             android:text="手机号码"
             android:textSize="@dimen/text_small_size" />
 
@@ -38,14 +40,14 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="*******2709"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_normal_size" />
     </LinearLayout>
 
     <ImageView
-        android:layout_below="@+id/ll_phone"
         android:id="@+id/iv_line_1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@+id/ll_phone"
         android:background="@color/colorLine" />
 
     <!--  <LinearLayout
@@ -79,18 +81,18 @@
 
     <LinearLayout
         android:id="@+id/ll_time"
-        android:layout_below="@id/iv_line_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:layout_below="@id/iv_line_1">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center_vertical"
+            android:paddingBottom="15dp"
             android:paddingLeft="15dp"
             android:paddingTop="15dp"
-            android:paddingBottom="15dp"
             android:text="上门修理时间"
             android:textSize="@dimen/text_small_size" />
 
@@ -99,48 +101,49 @@
             android:layout_height="match_parent"
             android:layout_weight="7"
             android:gravity="center_vertical">
+
             <TextView
                 android:id="@+id/repair_tv_date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:hint="点击选择时间"
-                android:textSize="@dimen/text_normal_size"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/many_color_clickl"
-                />
+                android:gravity="center"
+                android:hint="点击选择时间"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:textSize="@dimen/text_normal_size" />
+
             <TextView
                 android:id="@+id/repair_tv_time"
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:hint="选择时段"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textSize="@dimen/text_small_size"
-                android:gravity="center"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@drawable/many_color_clickl"
-                android:layout_height="match_parent" />
+                android:gravity="center"
+                android:hint="选择时段"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:textSize="@dimen/text_small_size" />
 
         </LinearLayout>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_line_2"
-        android:layout_below="@id/ll_time"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/ll_time"
         android:background="@color/colorLine" />
 
     <ScrollView
         android:id="@+id/sc_content"
-        android:layout_below="@+id/iv_line_2"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        >
+        android:layout_below="@+id/iv_line_2">
 
         <EditText
+            android:id="@+id/repair_et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -150,17 +153,17 @@
             android:lineSpacingMultiplier="1.2"
             android:padding="5dp"
             android:paddingLeft="15dp"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_normal_size" />
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/bt"
-        android:layout_below="@id/sc_content"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorback"
+        android:layout_below="@id/sc_content"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorback"
         android:gravity="center_vertical">
 
         <Button

@@ -5,4 +5,5 @@
     <string name="menu_secondhand">二手转让</string>
     <string name="repair_morning">早上   9:00-12:00</string>
     <string name="repair_afternoon">下午   15:00-18:00</string>
+    <string name="Location">http://10.0.2.2:8080/LaiFuCommunity/user/</string>
 </resources>
