@@ -19,7 +19,8 @@ import android.widget.TextView;
 
 import com.example.tick.myapplication.Mine.Presenter.*;
 import com.example.tick.myapplication.R;
-import com.example.tick.myapplication.User.LoginActivity;
+import com.example.tick.myapplication.User.Login.LoginActivity;
+//import com.example.tick.myapplication.User.LoginActivity;
 
 
 import java.util.zip.Inflater;
@@ -113,7 +114,6 @@ public class MineActivity extends Fragment {
 
     //选择拍照还是选择从图片库中选择
     public void pickOrTake() {
-//        new PickOrTake(getActivity(),presenter).initView();
         //初始化对话框
         //创建一个alertDialog对象
         alertDialog = new AlertDialog.Builder(getActivity()).create();

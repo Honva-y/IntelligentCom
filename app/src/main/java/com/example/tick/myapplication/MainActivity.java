@@ -48,7 +48,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private PropreyActivity propreyActivity;
     private TopicActivity topicActivity;
     private FragmentPagerAdapter pagerAdapter;
-//    private MainPresenter presenter;
     private static final int TAKE_PHOTO = 1;
     private static final int CHOSE_PICTURE = 2;
     private static final int CROP_PHOTO = 3;
@@ -88,7 +87,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);//取消标题栏
         setContentView(R.layout.activity_main);
-//        presenter = new MainPresenter(this);
         ButterKnife.bind(this);
         initView();
     }
@@ -214,11 +212,16 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                     //获取bitmap
                     Uri selectUri = data.getData();
                     String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    Cursor cursor = getContentResolver().query(selectUri,filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
+                    String picturePath = null;
+                    try {
+                        Cursor cursor = getContentResolver().query(selectUri,filePathColumn, null, null, null);
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        picturePath = cursor.getString(columnIndex);
+                        cursor.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     //bitmap转换成file文件
                     Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
                     BufferedOutputStream bos = null;

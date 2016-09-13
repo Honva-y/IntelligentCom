@@ -16,19 +16,13 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".User.LoginActivity">
+        <activity android:name=".User.Login.LoginActivity">
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Home.View.RepairActivity"></activity>
-        <activity android:name=".Home.PostActivity"/>
-        <activity android:name=".Home.EducationActivity"/>
-        <activity android:name=".Home.HouseKeepingActivity"/>
-        <activity android:name=".Home.OldManHomeActivity"/>
-        <activity android:name=".Home.SchoolActivity"/>
-        <activity android:name=".Home.WarningActivity"/>
         <activity android:name=".Propery.PayMent.PaymentActivity"/>
         <activity android:name=".Propery.Record.RecordActivity"/>
         <activity android:name=".Propery.BookseeActivity"/>
