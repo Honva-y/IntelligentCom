@@ -3,10 +3,15 @@ package com.example.tick.myapplication.Home.View;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,8 +20,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tick.myapplication.Home.Entity.RepairEntity;
 import com.example.tick.myapplication.Home.Presenter.RepairPresenterImp;
 import com.example.tick.myapplication.R;
+import com.example.tick.myapplication.User.Entity.UserId;
 import com.example.tick.myapplication.Utils;
 
 import java.util.Calendar;
@@ -28,11 +35,13 @@ import butterknife.OnClick;
 /**
  * Created by Tick on 2016/8/30.
  */
-public class RepairActivity extends Activity {
+public class RepairActivity extends Activity implements DialogInterface.OnKeyListener {
     private RepairPresenterImp presenter;
     //获取时间格式时间,时间段
-    private String post_date;
-    private String post_time;
+    String partTime;
+    private String startTime;
+    private String endTime;
+    private ProgressDialog pDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +60,31 @@ public class RepairActivity extends Activity {
     EditText et_content;
 
     private void initView() {
-        presenter = new RepairPresenterImp(this);
+        presenter = (RepairPresenterImp)new RepairPresenterImp(this);
         //获取标题并且设置标题
-        Intent intent = getIntent();
-        title.setText(intent.getStringExtra("title"));
+        title.setText(getIntent().getStringExtra("title"));
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("提交维修信息...");
+        pDialog.setOnKeyListener(this);
+        pDialog.setCancelable(false);
     }
-
+    public Handler repairHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    pDialog.dismiss();
+                    Toast.makeText(RepairActivity.this, "提交成功，我们会尽快安排。谢谢", Toast.LENGTH_SHORT).show();
+                    finish();
+                    break;
+                case 1:
+                    pDialog.dismiss();
+                    Toast.makeText(RepairActivity.this, "维修提交信息出错", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
     @OnClick(R.id.many_top_back)
     void OnBack() {
         finish();
@@ -73,13 +101,15 @@ public class RepairActivity extends Activity {
             Utils.showToast(RepairActivity.this,"维修内容不能为空");
         } else
         {
-            if(presenter.postRepairData(post_date+post_time,et_content.getText().toString())) {
-                Toast.makeText(RepairActivity.this, "提交成功，我们会尽快安排。谢谢", Toast.LENGTH_SHORT).show();
-                finish();
-            }else{
-                Toast.makeText(RepairActivity.this, "维修提交信息出错", Toast.LENGTH_SHORT).show();
-            }
+            RepairEntity entity = new RepairEntity();
+            entity.setRepair_starttime(startTime);
+            entity.setRepair_endtime(endTime);
+            entity.setRepair_project(et_content.getText().toString());
+            entity.setRepair_userid(UserId.getInstance().getUser_id());
+            presenter.postRepairData(entity);
+            pDialog.show();
         }
+
 
     }
 
@@ -93,7 +123,7 @@ public class RepairActivity extends Activity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 tv_date.setText(year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日");
-                post_date = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+                partTime = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
             }
         }, year, month, date);
         datePickerDialog.show();
@@ -110,7 +140,7 @@ public class RepairActivity extends Activity {
         alertDialog.show();
         //获取屏幕宽度
         int width = getWindowManager().getDefaultDisplay().getWidth();
-        WindowManager.LayoutParams params = alertDialog.getWindow().getAttributes();
+        final WindowManager.LayoutParams params = alertDialog.getWindow().getAttributes();
         params.width = width - (width / 6);
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.CENTER;
@@ -120,7 +150,8 @@ public class RepairActivity extends Activity {
             @Override
             public void onClick(View v) {
                 tv_time.setText(R.string.repair_morning);
-                post_time = " 9:00:00";
+                startTime = partTime+" 9:00:00";
+                endTime = partTime+" 12:00:00";
                 alertDialog.dismiss();
             }
         });
@@ -128,13 +159,18 @@ public class RepairActivity extends Activity {
             @Override
             public void onClick(View v) {
                 tv_time.setText(R.string.repair_afternoon);
-                post_time = " 15:00:00";
+                startTime = partTime+" 15:00:00";
+                endTime = partTime+" 18:00:00";
                 alertDialog.dismiss();
             }
         });
     }
 
-    public boolean isEmpty() {
-        return true;
+    @Override
+    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            pDialog.dismiss();
+        }
+        return false;
     }
 }

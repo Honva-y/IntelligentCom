@@ -45,4 +45,5 @@ public class HomeActivity extends Fragment{
     intent.putExtra("title","周边");
     startActivity(intent);
 }
+
 }

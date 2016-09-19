@@ -25,6 +25,7 @@ import com.example.tick.myapplication.Mine.MineActivity;
 import com.example.tick.myapplication.Mine.model.UserIcon;
 import com.example.tick.myapplication.Propery.PropreyActivity;
 import com.example.tick.myapplication.Topic.TopicActivity;
+import com.example.tick.myapplication.User.Entity.UserId;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -51,7 +52,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private static final int TAKE_PHOTO = 1;
     private static final int CHOSE_PICTURE = 2;
     private static final int CROP_PHOTO = 3;
-//    private Uri tempUri;
+    //    private int user_id;
+    public Uri tempUri;
     @BindView(R.id.viewpager)
     ViewPager viewPager;
     //导航栏布局
@@ -92,6 +94,11 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     }
 
     private void initView() {
+        //获取用户id，单例便于后期获取
+//        user_id = Integer.parseInt(getIntent().getStringExtra("user_id"));
+//        Log.d("aaaaa", "initView: "+user_id);
+//        UserId.getInstance().setUser_id(user_id);
+        //初始化
         homeActivity = new HomeActivity();
         mineActivity = new MineActivity();
         propreyActivity = new PropreyActivity();
@@ -108,6 +115,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             public Fragment getItem(int position) {
                 return fragments.get(position);
             }
+
             @Override
             public int getCount() {
                 return fragments.size();
@@ -117,18 +125,27 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this);
     }
-    @OnClick(R.id.home) void OnClickHome(){
+
+    @OnClick(R.id.home)
+    void OnClickHome() {
         viewPager.setCurrentItem(0);
     }
-    @OnClick(R.id.propery) void OnClickPropery(){
+
+    @OnClick(R.id.propery)
+    void OnClickPropery() {
         viewPager.setCurrentItem(1);
     }
-    @OnClick(R.id.topic) void OnClickTopic(){
+
+    @OnClick(R.id.topic)
+    void OnClickTopic() {
         viewPager.setCurrentItem(2);
     }
-    @OnClick(R.id.mine) void OnClickMine(){
+
+    @OnClick(R.id.mine)
+    void OnClickMine() {
         viewPager.setCurrentItem(3);
     }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -177,92 +194,88 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != RESULT_OK) {
-            Toast.makeText(this, "取消拍照", Toast.LENGTH_SHORT).show();
-        }
-        switch (requestCode) {
-            case TAKE_PHOTO:
-                if (resultCode == RESULT_OK) {
-                    File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                    File file = new File(path,UserIcon.getInstance().getImageName());
-                    InputStream is = null;
-                    try {
-                        is = new FileInputStream(file);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    mineActivity.setUsericon(bitmap);
-//                    Intent intent = new Intent("com.android.camera.action.CROP");
-//                    intent.setDataAndType(UserIcon.getInstance().getImageUri(), "image/*");
-//                    intent.putExtra("crop", true);
-//                    intent.putExtra("return-data", true);
-//                    intent.putExtra("aspectX", 1);
-//                    intent.putExtra("aspectY", 1);
-//                    intent.putExtra("outputX", 40);
-//                    intent.putExtra("outputY", 40);
-//                    tempUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/" + "small.jpg");
-//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-//                    startActivityForResult(intent, CROP_PHOTO);
-                }
-                break;
-            case CHOSE_PICTURE:
-                if(data!=null && resultCode==RESULT_OK)
-                {
-                    //获取bitmap
-                    Uri selectUri = data.getData();
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    String picturePath = null;
-                    try {
-                        Cursor cursor = getContentResolver().query(selectUri,filePathColumn, null, null, null);
-                        cursor.moveToFirst();
-                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        picturePath = cursor.getString(columnIndex);
-                        cursor.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    //bitmap转换成file文件
-                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-                    BufferedOutputStream bos = null;
-                    try {
-                        //文件路径
-                        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                        //参数一，哪文件夹下，参数二文件名字
-                        File file = new File(path,UserIcon.getInstance().getImageName());
-                        try {
-                            if (file.exists()) {
-                                file.delete();
-                            }
-                            file.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        bos = new BufferedOutputStream(new FileOutputStream(file));
-                        bitmap.compress(Bitmap.CompressFormat.JPEG,100,bos);
-                        bos.flush();
-                        bos.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    mineActivity.setUsericon(bitmap);
-                }
-                break;
-            case CROP_PHOTO:
-                //路径默认
-//                if (data.hasExtra("data")) {
-//                    //设置图片
-//                    mineActivity.setUsericon((Bitmap) data.getParcelableExtra("data"));
-//                }
-//                try {
-//                    Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(tempUri));
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case TAKE_PHOTO:
+                    startPhotoZoom(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "image.png")));
+                    break;
+                case CHOSE_PICTURE:
+                    if (data != null && resultCode == RESULT_OK) {
+//                    //获取bitmap
+//                    Uri selectUri = data.getData();
+//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//                    String picturePath = null;
+//                    try {
+//                        Cursor cursor = getContentResolver().query(selectUri, filePathColumn, null, null, null);
+//                        cursor.moveToFirst();
+//                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                        picturePath = cursor.getString(columnIndex);
+//                        cursor.close();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    //bitmap转换成file文件
+//                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+//                    BufferedOutputStream bos = null;
+//                    try {
+//                        //文件路径
+//                        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+//                        //参数一，哪文件夹下，参数二文件名字
+//                        File file = new File(path, UserIcon.getInstance().getImageName());
+//                        try {
+//                            if (file.exists()) {
+//                                file.delete();
+//                            }
+//                            file.createNewFile();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        bos = new BufferedOutputStream(new FileOutputStream(file));
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+//                        bos.flush();
+//                        bos.close();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
 //                    mineActivity.setUsericon(bitmap);
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-                break;
-
+                        startPhotoZoom(data.getData());
+                    }
+                    break;
+                case CROP_PHOTO:
+                    if (data != null) {
+                        setImageView(data);
+                    } else {
+                        Log.d("bbbb", "onActivityResult: data is null");
+                    }
+                    break;
+            }
+        }else{
+            Toast.makeText(this, "取消操作", Toast.LENGTH_SHORT).show();
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void setImageView(Intent data) {//将图片设置上去
+        Bundle bundle = data.getExtras();
+        if (bundle != null) {
+            Bitmap bitmap = bundle.getParcelable("data");
+            mineActivity.setUsericon(bitmap);
+        }
+    }
+
+    private void startPhotoZoom(Uri uri) {//截图
+        if (uri == null) {
+            Log.d("bbbbb", "startPhotoZoom: the uri is not exit");
+        }
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        //设置裁剪
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);//设置款高比
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 150);//设置截图后的宽高
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, CROP_PHOTO);
+    }
+
 }
