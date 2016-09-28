@@ -21,10 +21,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="专题活动"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:textColor="@color/balck"
                 android:textSize="@dimen/text_normal_size" />
 
             <TextView
@@ -34,7 +34,7 @@
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:padding="5dp"
-                android:text="活动具体的详情......"
+                android:text="低至五折"
                 android:textSize="@dimen/text_small_size" />
         </LinearLayout>
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/home_center_shop_1" />
     </LinearLayout>
 
     <ImageView
@@ -73,10 +73,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="热门市场"
+                android:padding="5dp"
                 android:gravity="center"
-                android:text="专题活动"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:textColor="@color/balck"
                 android:textSize="@dimen/text_normal_size" />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:padding="5dp"
-                android:text="活动具体的详情......"
+                android:text="天王表289元起"
                 android:textSize="@dimen/text_small_size" />
         </LinearLayout>
 
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/home_center_shop_2" />
     </LinearLayout>
 
     <ImageView
@@ -125,10 +125,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="特色好货"
+                android:textColor="@color/balck"
+                android:padding="5dp"
                 android:gravity="center"
-                android:text="专题活动"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:textSize="@dimen/text_normal_size" />
 
             <TextView
@@ -138,7 +138,7 @@
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:padding="5dp"
-                android:text="活动具体的详情......"
+                android:text="高粱饴8元/320g"
                 android:textSize="@dimen/text_small_size" />
         </LinearLayout>
 
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/home_center_shop_3" />
     </LinearLayout>
 
     <ImageView

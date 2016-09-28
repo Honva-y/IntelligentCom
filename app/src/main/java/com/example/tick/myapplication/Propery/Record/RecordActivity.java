@@ -1,18 +1,14 @@
 package com.example.tick.myapplication.Propery.Record;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tick.myapplication.Propery.PayMent.RecycleViewDivider;
+import com.example.tick.myapplication.MyView.RecycleViewDivider;
 import com.example.tick.myapplication.R;
 
 import butterknife.BindView;
@@ -21,7 +17,6 @@ import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 

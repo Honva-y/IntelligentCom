@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tick.myapplication.MyView.RecycleViewDivider;
 import com.example.tick.myapplication.R;
 
 import butterknife.BindView;
@@ -115,9 +116,7 @@ public class PaymentActivity extends Activity {
                 if(!checkState.get(i)) {//判断此checkbox是否已经选过
                     checkState.setValueAt(i, true);
                     myAdapter.notifyItemChanged(i);
-//                Log.d("aaaaaaa", "OnSelect: "+checkState.get(i));
                     addPrice(fee.get(i)+"");//将价格加入
-//                    Log.d("aaaaaa", "OnSelect: "+i);
                 }
             }
         }else if(!checkSelect.isChecked()){
@@ -126,12 +125,10 @@ public class PaymentActivity extends Activity {
                     checkState.setValueAt(i, false);
                     myAdapter.notifyItemChanged(i);
                     removePrice(fee.get(i)+"");
-//                    Log.d("bbbbbb", "OnSelect: "+i);
                 }
             }
         }
         setSum();
-//        myAdapter.notifyDataSetChanged();
     }
     private class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 

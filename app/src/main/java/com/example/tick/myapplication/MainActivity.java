@@ -3,8 +3,6 @@ package com.example.tick.myapplication;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -13,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,19 +19,10 @@ import android.widget.Toast;
 
 import com.example.tick.myapplication.Home.HomeActivity;
 import com.example.tick.myapplication.Mine.MineActivity;
-import com.example.tick.myapplication.Mine.model.UserIcon;
-import com.example.tick.myapplication.Propery.PropreyActivity;
+import com.example.tick.myapplication.Propery.View.Imple.PropreyActivity;
 import com.example.tick.myapplication.Topic.TopicActivity;
-import com.example.tick.myapplication.User.Entity.UserId;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,10 +82,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     }
 
     private void initView() {
-        //获取用户id，单例便于后期获取
-//        user_id = Integer.parseInt(getIntent().getStringExtra("user_id"));
-//        Log.d("aaaaa", "initView: "+user_id);
-//        UserId.getInstance().setUser_id(user_id);
         //初始化
         homeActivity = new HomeActivity();
         mineActivity = new MineActivity();
@@ -201,43 +185,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                     break;
                 case CHOSE_PICTURE:
                     if (data != null && resultCode == RESULT_OK) {
-//                    //获取bitmap
-//                    Uri selectUri = data.getData();
-//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                    String picturePath = null;
-//                    try {
-//                        Cursor cursor = getContentResolver().query(selectUri, filePathColumn, null, null, null);
-//                        cursor.moveToFirst();
-//                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                        picturePath = cursor.getString(columnIndex);
-//                        cursor.close();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    //bitmap转换成file文件
-//                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-//                    BufferedOutputStream bos = null;
-//                    try {
-//                        //文件路径
-//                        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-//                        //参数一，哪文件夹下，参数二文件名字
-//                        File file = new File(path, UserIcon.getInstance().getImageName());
-//                        try {
-//                            if (file.exists()) {
-//                                file.delete();
-//                            }
-//                            file.createNewFile();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        bos = new BufferedOutputStream(new FileOutputStream(file));
-//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-//                        bos.flush();
-//                        bos.close();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    mineActivity.setUsericon(bitmap);
                         startPhotoZoom(data.getData());
                     }
                     break;
@@ -245,20 +192,23 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                     if (data != null) {
                         setImageView(data);
                     } else {
-                        Log.d("bbbb", "onActivityResult: data is null");
+
                     }
                     break;
             }
-        }else{
+        } else {
             Toast.makeText(this, "取消操作", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void setImageView(Intent data) {//将图片设置上去
         Bundle bundle = data.getExtras();
         if (bundle != null) {
             Bitmap bitmap = bundle.getParcelable("data");
+//                Log.d("aaa0", "setImageView: "+uri.toString());
             mineActivity.setUsericon(bitmap);
+            mineActivity.uploadUserHead();
         }
     }
 
@@ -266,8 +216,11 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         if (uri == null) {
             Log.d("bbbbb", "startPhotoZoom: the uri is not exit");
         }
+        mineActivity.setImagePaht(getImagePath(uri).toString());//将文件路径传递给mineActivity
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+        intent.setData(uri);
+//        Log.d("aaa1", "startPhotoZoom: "+intent.getData().toString());
+        intent.setDataAndType(uri, "image/jpg");
         //设置裁剪
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);//设置款高比
@@ -278,4 +231,15 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         startActivityForResult(intent, CROP_PHOTO);
     }
 
+    private String getImagePath(Uri uri) {//获取截图后的图片路径
+        String path = null;
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
 }

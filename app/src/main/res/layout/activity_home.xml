@@ -10,23 +10,24 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/home_notifi_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center_horizontal"
-            android:text="日常通知"
+            android:text="网络异常"
             android:textSize="25dp" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:background="@color/white">
             <TextView
+                android:id="@+id/home_notifi_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingMultiplier="1.2"
                 android:padding="5dp"
-                android:text="     因小区安装光纤网络，2016.8.29 8:00---2016.8.30 16:00网络将无法使用，给您带来不便，敬请谅解，谢谢!另外，昨天水管爆裂，电线烧毁，今天停水停电。大家该哪里浪哪里浪，谢谢..."
                 android:textSize="@dimen/text_small_size" />
         </ScrollView>
     </LinearLayout>
