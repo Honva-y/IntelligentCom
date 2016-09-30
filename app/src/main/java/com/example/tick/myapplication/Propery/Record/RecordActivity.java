@@ -67,7 +67,7 @@ public class RecordActivity extends Activity{
                 frame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("aaaaaaa", "run: ???????");
+                        ptrFrameLayout.refreshComplete();
                     }
                 },2000);
             }

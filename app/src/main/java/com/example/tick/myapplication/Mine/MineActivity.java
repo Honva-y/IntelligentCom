@@ -221,7 +221,7 @@ public class MineActivity extends Fragment implements MineView{
         array.put(0, 1);//修改头像
         array.put(1, user_id);
         array.put(2, getImagePaht());
-        presenter.postUser(array);
+//        presenter.postUser(array);
     }
 
     public void setUsericon(Bitmap bitmap) {  //设置头像
