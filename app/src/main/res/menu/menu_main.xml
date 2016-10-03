@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_menu_topic"
+        android:title="@string/menu_topic"
+        android:orderInCategory="100"
+        />
+    <item
+        android:id="@+id/main_menu_interactive"
+        android:title="@string/menu_interactive"
+        android:orderInCategory="100"
+        />
+    <item
+        android:id="@+id/main_menu_secondhand"
+        android:title="@string/menu_secondhand"
+        android:orderInCategory="100"
+        />
+</menu>

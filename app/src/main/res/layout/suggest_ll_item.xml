@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/suggest_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:text="乱七八糟一大堆东西在这里随便乱写"
+        android:textSize="@dimen/text_small_size" />
+
+    <TextView
+        android:id="@+id/suggest_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:gravity="right"
+        android:text="2016-9-26"
+        android:textSize="@dimen/text_normal_size" />
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/suggest_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:text="已处理"
+        android:textColor="@color/colorBlue"
+        android:textSize="@dimen/text_small_size" />
+    <TextView
+        android:id="@+id/suggest_reply_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:gravity="right"
+        android:text="2016-9-26"
+        android:textSize="@dimen/text_normal_size" />
+</LinearLayout>
+</LinearLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/many_top_back_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <com.example.tick.myapplication.MyView.ClearEditText
+            android:id="@+id/forgetpw_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="手机号码"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorText"
+            android:textSize="@dimen/text_normal_size" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/colorLine" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/colorLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+
+        >
+
+        <com.example.tick.myapplication.MyView.ClearEditText
+            android:id="@+id/forgetpw_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:background="@null"
+            android:hint="验证码"
+            android:inputType="number"
+            android:maxLength="6"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColorHint="@color/colorText"
+            android:textSize="@dimen/text_normal_size" />
+
+        <Button
+            android:id="@+id/forgetpw_bt_getcode"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="3"
+            android:background="@drawable/button_corners_blue"
+            android:text="获取"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_small_size" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/colorLine" />
+
+    <Button
+        android:id="@+id/forgetpw_bt_getpw"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_corners_blue"
+        android:text="找回密码"
+        android:textColor="@color/white"
+        android:textSize="@dimen/button_text_size" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6" />
+</LinearLayout>
