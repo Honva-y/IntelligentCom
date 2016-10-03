@@ -243,7 +243,10 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
             view.findViewById(R.id.topic_comment_bt_send).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    String mess = et_content.getText().toString().trim();
+                    Log.d("aaaa", "onClick: "+mess);
+                    //怎么隐藏popupwindow
+//                    presenter.doComment();
                 }
             });
         }
