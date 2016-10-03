@@ -33,6 +33,7 @@
             android:textSize="@dimen/text_small_size" />
 
         <TextView
+            android:id="@+id/home_tv_account"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
@@ -108,11 +109,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/many_color_clickl"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:hint="点击选择时间"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:textSize="@dimen/text_normal_size" />
+                android:textSize="@dimen/text_small_size" />
 
             <TextView
                 android:id="@+id/repair_tv_time"
@@ -156,18 +157,9 @@
             android:textSize="@dimen/text_normal_size" />
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/bt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sc_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorback"
-        android:gravity="center_vertical">
-
         <Button
             android:id="@+id/repair_bt_ok"
+            android:layout_below="@+id/sc_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -176,5 +168,4 @@
             android:text="确 定"
             android:textColor="@color/white"
             android:textSize="@dimen/button_text_size" />
-    </LinearLayout>
 </RelativeLayout>

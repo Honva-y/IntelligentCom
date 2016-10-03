@@ -33,6 +33,7 @@ import com.example.tick.myapplication.Mine.Presenter.MinePresenter;
 import com.example.tick.myapplication.Mine.View.Impl.MyRepairView;
 import com.example.tick.myapplication.Mine.View.Impl.MySuggestView;
 import com.example.tick.myapplication.Mine.View.MineView;
+import com.example.tick.myapplication.MyView.ActivityTask;
 import com.example.tick.myapplication.MyView.CircleTransform;
 import com.example.tick.myapplication.R;
 import com.example.tick.myapplication.User.View.LoginActivity;
@@ -42,6 +43,7 @@ import com.example.tick.myapplication.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,7 +84,6 @@ public class MineActivity extends Fragment implements MineView{
     private String nickname;
     private SparseArray array;
     private String imagePaht;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

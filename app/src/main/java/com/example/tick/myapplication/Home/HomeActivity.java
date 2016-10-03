@@ -17,6 +17,7 @@ import com.example.tick.myapplication.Home.Entity.NotifyEntity;
 import com.example.tick.myapplication.Home.Presenter.HomePresenter;
 import com.example.tick.myapplication.Home.Presenter.Imple.HomePresenterImp;
 import com.example.tick.myapplication.Home.View.HomeView;
+import com.example.tick.myapplication.MyView.ActivityTask;
 import com.example.tick.myapplication.R;
 import com.example.tick.myapplication.Home.View.Imple.*;
 
@@ -38,6 +39,8 @@ public class HomeActivity extends Fragment implements HomeView{
     TextView tv_notify_content;
     private String date,content;
     private Message mess;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

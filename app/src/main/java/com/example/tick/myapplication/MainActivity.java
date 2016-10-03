@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.tick.myapplication.Home.HomeActivity;
 import com.example.tick.myapplication.Mine.MineActivity;
+import com.example.tick.myapplication.MyView.ActivityTask;
 import com.example.tick.myapplication.Propery.View.Imple.PropreyActivity;
 import com.example.tick.myapplication.Topic.TopicActivity;
 
@@ -82,9 +83,10 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     }
 
     private void initView() {
+        ActivityTask.getInstance().addActivity(this);//管理activyty
         //初始化
         homeActivity = new HomeActivity();
-        mineActivity = new MineActivity();
+        mineActivity = new MineActivity();//将task传入，修改密码时候可以结束掉所有activity
         propreyActivity = new PropreyActivity();
         topicActivity = new TopicActivity();
 

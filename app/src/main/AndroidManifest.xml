@@ -46,6 +46,7 @@
         </activity>
         <activity android:name=".User.View.Imp.RegisterView"/>
         <activity android:name=".User.View.Imp.ForgetPwActivity"/>
+        <activity android:name=".User.View.Imp.ModifyPwView"></activity>
         <activity android:name=".Propery.PayMent.PaymentActivity"/>
         <activity android:name=".Propery.Record.RecordActivity"/>
         <activity android:name=".Propery.View.Imple.SuggestActivity"/>
