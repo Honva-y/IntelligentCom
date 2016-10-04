@@ -61,9 +61,9 @@ public class TopicPre implements TopicListeren, TopicPresenter {
     }
 
     @Override
-    public void doComment(int user_id, String mess) {
+    public void doComment(int user_id,int topic_id, String mess) {
         view.showDialog();
-        model.onComment(user_id,mess,this);
+        model.onComment(user_id,topic_id,mess,this);
     }
 
 }

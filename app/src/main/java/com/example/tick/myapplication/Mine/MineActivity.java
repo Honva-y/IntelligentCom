@@ -70,10 +70,10 @@ public class MineActivity extends Fragment implements MineView{
     TextView tv_userEmail;
     @BindView(R.id.mine_tv_user_photo)
     TextView tv_userPhoto;
-    @BindView(R.id.mine_ll_completeinfo)
-    LinearLayout ll_completeinfo;
-    @BindView(R.id.mine_tv_user_completeinfo)
-    TextView tv_completeinfo;
+//    @BindView(R.id.mine_ll_completeinfo)
+//    LinearLayout ll_completeinfo;
+//    @BindView(R.id.mine_tv_user_completeinfo)
+//    TextView tv_completeinfo;
     private static final int TAKE_PHOTO = 1;
     private static final int CHOSE_PICTURE = 2;
     private Uri tempUri;//拍照图片保存暂时地址
@@ -111,7 +111,7 @@ public class MineActivity extends Fragment implements MineView{
         tv_userCommunity.setText(sharedPreferences.getString("user_community", ""));
         tv_userEmail.setText(sharedPreferences.getString("user_email", ""));
         user_id = sharedPreferences.getInt("user_id", 0);
-        docheckInfo(sharedPreferences.getString("user_card", ""), sharedPreferences.getString("user_approver", ""));
+//        docheckInfo(sharedPreferences.getString("user_card", ""), sharedPreferences.getString("user_approver", ""));
         Picasso.with(getActivity()).load(new MyData().getBaseUrl() + sharedPreferences.getString("user_head", ""))//加载头像
                 .placeholder(R.mipmap.head)
                 .error(R.mipmap.head).resize(80, 80)
@@ -127,11 +127,11 @@ public class MineActivity extends Fragment implements MineView{
     void OnChangePw() {//跳转到修改密码页面
         startActivity(new Intent(getActivity(), ChangePasswordActivity.class).putExtra("title", "修改密码"));
     }
-
-    @OnClick(R.id.mine_ll_completeinfo)
-    void OnCompleteInfo() {  //跳转到完善信息页面
-        startActivity(new Intent(getActivity(), CompleteInfoActivity.class).putExtra("title", "完善信息"));
-    }
+//
+//    @OnClick(R.id.mine_ll_completeinfo)
+//    void OnCompleteInfo() {  //跳转到完善信息页面
+//        startActivity(new Intent(getActivity(), CompleteInfoActivity.class).putExtra("title", "完善信息"));
+//    }
 
     @OnClick(R.id.mine_ll_logout)
     void OnLogout() { //注销账户
@@ -146,7 +146,12 @@ public class MineActivity extends Fragment implements MineView{
 
     @OnClick(R.id.mine_ll_exit)
     void OnExit() {   //退出应用
-        new AlertDialog.Builder(getContext()).setMessage("退出").setPositiveButton("确定", null).setNegativeButton("取消", null).show();
+        new AlertDialog.Builder(getContext()).setMessage("退出").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);//退出程序
+            }
+        }).setNegativeButton("取消", null).show();
     }
 
     @OnClick(R.id.mine_ll_mysuggest)
@@ -289,21 +294,21 @@ public class MineActivity extends Fragment implements MineView{
     }
 
 
-    public void docheckInfo(String IdCard, String approver) {
-        if (!IdCard.equals("") && !approver.equals("")) {
-            ll_completeinfo.setClickable(false);//信息完善不可点击
-            tv_completeinfo.setText("信息已完善");
-            tv_completeinfo.setTextColor(getResources().getColor(R.color.colorGreen));
-        } else if (!IdCard.equals("") && approver.equals("")) {
-            ll_completeinfo.setClickable(false);//信息完善不可点击
-            tv_completeinfo.setText("信息审核中");
-            tv_completeinfo.setTextColor(getResources().getColor(R.color.colorBlue));
-        } else {
-            ll_completeinfo.setClickable(true);//信息完善不可点击
-            tv_completeinfo.setText("信息未完善");
-            tv_completeinfo.setTextColor(getResources().getColor(R.color.colorRed));
-        }
-    }
+//    public void docheckInfo(String IdCard, String approver) {
+//        if (!IdCard.equals("") && !approver.equals("")) {
+//            ll_completeinfo.setClickable(false);//信息完善不可点击
+//            tv_completeinfo.setText("信息已完善");
+//            tv_completeinfo.setTextColor(getResources().getColor(R.color.colorGreen));
+//        } else if (!IdCard.equals("") && approver.equals("")) {
+//            ll_completeinfo.setClickable(false);//信息完善不可点击
+//            tv_completeinfo.setText("信息审核中");
+//            tv_completeinfo.setTextColor(getResources().getColor(R.color.colorBlue));
+//        } else {
+//            ll_completeinfo.setClickable(true);//信息完善不可点击
+//            tv_completeinfo.setText("信息未完善");
+//            tv_completeinfo.setTextColor(getResources().getColor(R.color.colorRed));
+//        }
+//    }
 
     public String getImagePaht() {
         return imagePaht;

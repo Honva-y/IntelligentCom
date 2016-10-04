@@ -79,10 +79,27 @@ public class TopicMod implements TopicModel {
 
 
     @Override
-    public void onComment(int user_id, String mess,final TopicListeren listeren) {//评论后重新调用onRequest方法，重新获取消息
-        RequestBody body = new FormBody.Builder().add("user_id",user_id+"").add("comment_content",mess).build();
-        Request request = new Request.Builder().url(new MyData().getTopicComment()).post(body).build();
-
+    public void onComment(final int user_id, final int topic_id, final String mess, final TopicListeren listeren) {//评论后重新调用onRequest方法，重新获取消息
+        Log.d("aaaaa", "onResponse: in");
+//        new Thread(new Runnable() {
+//            public void run() {
+//                RequestBody body = new FormBody.Builder().add("user_id",user_id+"").add("topic_id",topic_id+"").add("comment_content",mess).build();
+//                Request request = new Request.Builder().url(new MyData().getTopicComment()).post(body).build();
+//                Call call = client.newCall(request);
+//                call.enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                            listeren.onFailed("服务器出错");
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//
+////                        onRequest(user_id,null,listeren);
+//                    }
+//                });
+//            }
+//        }).start();
     }
 
 

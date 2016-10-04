@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.example.tick.myapplication.GlobalValue.MyData;
 import com.example.tick.myapplication.Mine.Entity.BackCode;
+import com.example.tick.myapplication.User.Entity.MessageCode;
+import com.example.tick.myapplication.User.Entity.RegisterEntity;
 import com.example.tick.myapplication.User.Model.UserModel;
 import com.example.tick.myapplication.User.Presenter.UserListeren;
 import com.google.gson.Gson;
@@ -34,12 +36,18 @@ public class RegisterMod implements UserModel {
     public void doPost(Object o1, Object o2, final UserListeren listeren) {
         if ((int) o2 == GET_CODE) {
             request = new Request.Builder().url(new MyData().getGetCode()).build();
+            getCode(request,listeren);
         } else if ((int) o2 == REGISTER) {
-            String registerInfo = new Gson().toJson(o1);
-            Log.d("aaaa", "doPost: " + registerInfo);
-            RequestBody body = new FormBody.Builder().add("registInfo", registerInfo).build();
+            RegisterEntity entity = (RegisterEntity) o1;
+            Log.d("aaaa", "doPost: " + entity.getUser_account());
+            RequestBody body = new FormBody.Builder().add("user_account", entity.getUser_account()).add("user_password",entity.getUser_password()).build();
             request = new Request.Builder().url(new MyData().getRegisterUrl()).post(body).build();
+            registerUser(request,listeren);
         }
+
+    }
+
+    private void registerUser(final Request request, final UserListeren listeren) {
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -51,9 +59,26 @@ public class RegisterMod implements UserModel {
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string().toString();
                 response.close();
-                Log.d("aaaa", "onResponse: "+json);
-                BackCode backCode = new Gson().fromJson(json,BackCode.class);
-                listeren.onSuccess(backCode,null);
+                BackCode backCode= new Gson().fromJson(json,BackCode.class);
+                listeren.onSuccess(backCode,REGISTER);
+            }
+        });
+    }
+
+    private void getCode(final Request request,final UserListeren listeren) {
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listeren.onFailed();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string().toString();
+                response.close();
+                MessageCode messageCode = new Gson().fromJson(json,MessageCode.class);
+                listeren.onSuccess(messageCode,GET_CODE);
             }
         });
     }

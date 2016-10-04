@@ -244,9 +244,9 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
                 @Override
                 public void onClick(View v) {
                     String mess = et_content.getText().toString().trim();
-                    Log.d("aaaa", "onClick: "+mess);
-                    //怎么隐藏popupwindow
-//                    presenter.doComment();
+                    presenter.doComment(user_id,entity.getTopicList().get(position).getTopic().getTopic_id(),mess);//传入用户ID，话题id，发送的消息
+//                    Log.d("aaaa", "onClick: "+mess);
+                    popWindow.dismiss();
                 }
             });
         }

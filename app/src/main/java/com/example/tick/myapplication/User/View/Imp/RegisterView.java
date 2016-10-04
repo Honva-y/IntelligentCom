@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.example.tick.myapplication.Mine.Entity.BackCode;
 import com.example.tick.myapplication.MyView.ClearEditText;
 import com.example.tick.myapplication.R;
+import com.example.tick.myapplication.User.Entity.MessageCode;
 import com.example.tick.myapplication.User.Entity.RegisterEntity;
 import com.example.tick.myapplication.User.Entity.UserEntity;
 import com.example.tick.myapplication.User.Presenter.Imp.RegisterPre;
@@ -46,6 +48,7 @@ public class RegisterView extends Activity implements UserView {
     private UserPresenter presenter;
     private final static int GET_CODE = 0;
     private final static int REGISTER = 1;
+    private int code=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class RegisterView extends Activity implements UserView {
     void onGetCode() {
         if (isRightPhoto())//获取验证码
             onPersenter("", GET_CODE);
+        et_code.requestFocus();
     }
 
     @OnClick(R.id.register_bt_register)
@@ -80,8 +84,9 @@ public class RegisterView extends Activity implements UserView {
             RegisterEntity entity = new RegisterEntity();
             entity.setUser_account(et_photo.getText().toString().trim());
             entity.setUser_password(et_pw.getText().toString().trim());
-            entity.setCode(Integer.parseInt(et_code.getText().toString().trim()));
             onPersenter(entity, REGISTER);
+        }else{
+            Log.d("aaaaa", "onRegister: ?????????");
         }
     }
 
@@ -104,8 +109,14 @@ public class RegisterView extends Activity implements UserView {
     @Override
     public void onShowMess(Object o, Object o2) {
         Message message = new Message();
-        message.obj = ((BackCode) o).getMessage();
-        message.what = ((BackCode) o).getCode();
+        if(o2==GET_CODE) {
+            message.obj = ((MessageCode) o).getSendCode().getMessage();//状态信息
+            message.what = ((MessageCode) o).getSendCode().getCode(); //状态码
+            message.arg1 = Integer.parseInt(((MessageCode) o).getNumber());
+        }else if(o2==REGISTER){
+            message.obj = ((BackCode)o).getMessage();
+            message.what = ((BackCode)o).getCode();
+        }
         handler.sendMessage(message);
     }
 
@@ -113,16 +124,12 @@ public class RegisterView extends Activity implements UserView {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Utils.showToast(getApplicationContext(), msg.obj + "");
-            if(msg.what==0){//请求码失败
-
-            }else if(msg.what==1&&String.valueOf(msg.obj).contains("注册成功")){//请求码正确
-                //跳转到修改密码界面
-                finish();
-            }
-            else if(msg.what==1&&String.valueOf(msg.obj).contains("短信")){//请求码正确,不做处理
-
-            }
+            Utils.showToast(RegisterView.this,msg.obj.toString());
+           if(msg.what==1&&msg.arg1!=0){//请求码正确,获取验证码
+                code = msg.arg1;
+            }else if(msg.what==1){
+               Log.d("aaa", "handleMessage: 跳转到完善信息页面");
+           }
         }
     };
 
@@ -171,9 +178,12 @@ public class RegisterView extends Activity implements UserView {
             Utils.showToast(this, "验证码不能为空");
             et_code.requestFocus();
             return false;
-        }else if(et_code.getText().toString().trim().length()!=6){
-            Utils.showToast(this,"验证码不正确");
+        } else if (et_code.getText().toString().trim().length() != 6) {
+            Utils.showToast(this, "验证码不正确");
             et_code.requestFocus();
+            return false;
+        } else if (!(Integer.parseInt(et_code.getText().toString()) == code)) {
+            Utils.showToast(this,"验证码不正确");
             return false;
         }
         return true;
