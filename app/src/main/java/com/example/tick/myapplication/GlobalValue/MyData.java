@@ -26,7 +26,12 @@ public class MyData extends Application {
     private String TopicCancleZan = BaseUrl + "/Android/user/topic/";//取消赞
     private String TopicComment = BaseUrl + "";//小区话题评论
     private String Financial = BaseUrl + "";//缴费记录
+    private String CompleteInfo = BaseUrl + "/Android/user/completeInfor";//缴费记录
     private String ModifyPwUrl = BaseUrl + "";//修改密码，不需要提供旧密码
+
+    public String getCompleteInfo() {
+        return CompleteInfo;
+    }
 
     public String getTopicComment() {
         return TopicComment;

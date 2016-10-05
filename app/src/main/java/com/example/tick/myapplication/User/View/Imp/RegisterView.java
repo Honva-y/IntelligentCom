@@ -86,7 +86,7 @@ public class RegisterView extends Activity implements UserView {
             entity.setUser_password(et_pw.getText().toString().trim());
             onPersenter(entity, REGISTER);
         }else{
-            Log.d("aaaaa", "onRegister: ?????????");
+            Utils.showToast(this,"未知错误");
         }
     }
 
@@ -129,6 +129,8 @@ public class RegisterView extends Activity implements UserView {
                 code = msg.arg1;
             }else if(msg.what==1){
                Log.d("aaa", "handleMessage: 跳转到完善信息页面");
+               startActivity(new Intent(RegisterView.this,CompleteInfoActivity.class).putExtra("title","完善信息").putExtra("user_account",et_photo.getText().toString().trim()));
+               finish();
            }
         }
     };

@@ -51,7 +51,6 @@
         <activity android:name=".Propery.Record.RecordActivity"/>
         <activity android:name=".Propery.View.Imple.SuggestActivity"/>
         <activity android:name=".Mine.View.Impl.ChangePasswordActivity"/>
-        <activity android:name=".Mine.View.Impl.CompleteInfoActivity" />
         <activity android:name=".Mine.View.Impl.MySuggestView"></activity>
         <activity android:name=".Mine.View.Impl.MyRepairView"></activity>
         <activity android:name=".Home.View.Imple.AroundActivity"></activity>

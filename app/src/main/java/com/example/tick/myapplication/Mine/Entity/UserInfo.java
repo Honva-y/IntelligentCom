@@ -4,11 +4,20 @@ package com.example.tick.myapplication.Mine.Entity;
  * Created by Tick on 2016/9/8.
  */
 public class UserInfo {
+    String user_account;
     String user_nickname;
     String user_card;
     String user_realname;
     String user_community;
     String user_email;
+
+    public String getUser_account() {
+        return user_account;
+    }
+
+    public void setUser_account(String user_account) {
+        this.user_account = user_account;
+    }
 
     public String getUser_nickname() {
         return user_nickname;

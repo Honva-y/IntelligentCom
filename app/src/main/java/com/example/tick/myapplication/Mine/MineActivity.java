@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tick.myapplication.GlobalValue.MyData;
@@ -33,17 +32,14 @@ import com.example.tick.myapplication.Mine.Presenter.MinePresenter;
 import com.example.tick.myapplication.Mine.View.Impl.MyRepairView;
 import com.example.tick.myapplication.Mine.View.Impl.MySuggestView;
 import com.example.tick.myapplication.Mine.View.MineView;
-import com.example.tick.myapplication.MyView.ActivityTask;
 import com.example.tick.myapplication.MyView.CircleTransform;
 import com.example.tick.myapplication.R;
 import com.example.tick.myapplication.User.View.LoginActivity;
 import com.example.tick.myapplication.Mine.View.Impl.ChangePasswordActivity;
-import com.example.tick.myapplication.Mine.View.Impl.CompleteInfoActivity;
 import com.example.tick.myapplication.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
