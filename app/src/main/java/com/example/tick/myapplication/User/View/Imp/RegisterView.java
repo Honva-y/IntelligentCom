@@ -113,9 +113,11 @@ public class RegisterView extends Activity implements UserView {
             message.obj = ((MessageCode) o).getSendCode().getMessage();//状态信息
             message.what = ((MessageCode) o).getSendCode().getCode(); //状态码
             message.arg1 = Integer.parseInt(((MessageCode) o).getNumber());
+            Log.d("bbbb", "GET_CODE: "+((MessageCode) o).getSendCode().getCode());
         }else if(o2==REGISTER){
             message.obj = ((BackCode)o).getMessage();
             message.what = ((BackCode)o).getCode();
+            Log.d("bbbb2", " REGISTER:"+((BackCode)o).getCode()+",what:"+message.what);
         }
         handler.sendMessage(message);
     }
@@ -124,11 +126,13 @@ public class RegisterView extends Activity implements UserView {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Utils.showToast(RegisterView.this,msg.obj.toString());
            if(msg.what==1&&msg.arg1!=0){//请求码正确,获取验证码
-                code = msg.arg1;
-            }else if(msg.what==1){
-               Log.d("aaa", "handleMessage: 跳转到完善信息页面");
+               code = msg.arg1;
+               Utils.showToast(RegisterView.this,msg.obj.toString());
+           }
+           else if(msg.what==1){
+//               Utils.showToast(RegisterView.this,msg.obj.toString());
+//               Log.d("aaa", "handleMessage: 跳转到完善信息页面");
                startActivity(new Intent(RegisterView.this,CompleteInfoActivity.class).putExtra("title","完善信息").putExtra("user_account",et_photo.getText().toString().trim()));
                finish();
            }

@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:padding="5dp"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    android:layout_height="wrap_content">
-<ImageView
-    android:id="@+id/topic_comment_iv_face"
-    android:layout_alignParentTop="true"
-    android:src="@mipmap/face"
-    android:layout_width="wrap_content"
-    android:padding="5dp"
-    android:layout_height="wrap_content" />
+    android:orientation="horizontal"
+    android:padding="5dp">
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/colorback"-->
+        <!--/>-->
+    <ImageView
+        android:id="@+id/topic_comment_iv_face"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        android:src="@mipmap/face" />
+
     <EditText
         android:id="@+id/topic_comment_et_content"
-        android:layout_toRightOf="@id/topic_comment_iv_face"
-        android:layout_toLeftOf="@+id/topic_comment_bt_send"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/topic_comment_bt_send"
+        android:layout_toRightOf="@id/topic_comment_iv_face"
         android:background="@null"
         android:focusable="true"
-        android:hint="来说一句吧.."
-        android:layout_height="wrap_content" />
+        android:hint="来说一句吧.." />
+
     <Button
         android:id="@+id/topic_comment_bt_send"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:text="发送"
-        android:textColor="@color/white"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:background="@drawable/button_corners_blue"
-        />
+        android:text="发送"
+        android:textColor="@color/white" />
 </RelativeLayout>

@@ -29,6 +29,7 @@ import com.example.tick.myapplication.Topic.Entity.TopicEntity;
 import com.example.tick.myapplication.Topic.Entity.ZanList;
 import com.example.tick.myapplication.Topic.Presenter.Imp.TopicPre;
 import com.example.tick.myapplication.Topic.Presenter.TopicPresenter;
+import com.example.tick.myapplication.Topic.View.TopicView;
 import com.example.tick.myapplication.Topic.ViewHolder.TopicHolder;
 import com.example.tick.myapplication.Utils;
 import com.squareup.picasso.Picasso;
@@ -71,7 +72,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
     @Override
     public void onBindViewHolder(TopicHolder holder, int position) {
         if (entity != null) {
-            Picasso.with(parentView).load(new MyData().getBaseUrl() + entity.getTopicList().get(position).getAuthor().getUser_head()).resize(50, 50).transform(new CircleTransform()).into(holder.user_head);
+            Picasso.with(parentView).load(new MyData().getBaseUrl() + entity.getTopicList().get(position).getAuthor().getUser_head()).transform(new CircleTransform()).into(holder.user_head);
             holder.user_nickname.setText(entity.getTopicList().get(position).getAuthor().getUser_nickname());
             holder.content.setText(entity.getTopicList().get(position).getTopic().getTopic_comment());
             holder.date.setText(getYearMonthDay(position));
@@ -220,7 +221,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
             if(popWindow==null){
                 LayoutInflater layoutInflater = (LayoutInflater) parentView.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = layoutInflater.inflate(R.layout.topic_popup_comment,null);
-                popWindow  = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT,100,true);
+                popWindow  = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT,150,true);
             }
             popWindow.setFocusable(true);
             popWindow.setOutsideTouchable(false);//在外点击消失
@@ -244,9 +245,14 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
                 @Override
                 public void onClick(View v) {
                     String mess = et_content.getText().toString().trim();
-                    presenter.doComment(user_id,entity.getTopicList().get(position).getTopic().getTopic_id(),mess);//传入用户ID，话题id，发送的消息
+                    if(mess.equals("")){
+
+                    }
+                    else{
+                        presenter.doComment(user_id,entity.getTopicList().get(position).getTopic().getTopic_id(),mess);//传入用户ID，话题id，发送的消息
 //                    Log.d("aaaa", "onClick: "+mess);
-                    popWindow.dismiss();
+                        popWindow.dismiss();
+                    }
                 }
             });
         }

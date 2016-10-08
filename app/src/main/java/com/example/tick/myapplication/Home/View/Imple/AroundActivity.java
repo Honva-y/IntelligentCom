@@ -9,16 +9,21 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.model.LatLng;
 import com.example.tick.myapplication.R;
+import com.example.tick.myapplication.Utils;
 
 import java.util.List;
 
@@ -38,13 +43,20 @@ public class AroundActivity extends Activity {
     private LocationManager manager;
     private String provider;
     private boolean isFirstLocate = true;
+    private Location location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(getApplicationContext());//初始化百度sdk
         setContentView(R.layout.activity_home_around);
         ButterKnife.bind(this);
         initView();
+    }
+
+    @OnClick(R.id.around_iv_location)
+    void onLocate() {
+        Utils.showToast(this, "locate...");
     }
 
     private void initView() {
@@ -52,6 +64,8 @@ public class AroundActivity extends Activity {
         title.setText(getIntent().getStringExtra("title"));
         //baidu地图
         baiduMap = mapView.getMap();
+        baiduMap.setMyLocationEnabled(true);//开启定位图层
+
         initLocation();
 
     }
@@ -59,7 +73,7 @@ public class AroundActivity extends Activity {
     private void initLocation() {
         //获取我的位置
         manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        List<String> provides = manager.getAllProviders();
+        List<String> provides = manager.getProviders(true);
         if (provides.contains(LocationManager.GPS_PROVIDER)) {
             provider = LocationManager.GPS_PROVIDER;
         } else if (provides.contains(LocationManager.NETWORK_PROVIDER)) {
@@ -70,27 +84,34 @@ public class AroundActivity extends Activity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        Location location = manager.getLastKnownLocation(provider);
+        Log.d("aaaa", "initLocation: "+provider);
+        location = manager.getLastKnownLocation(provider);
         if (location != null) {
             navigateTo(location);
+        } else {
         }
-        manager.requestLocationUpdates(provider,5000,1,listener);
+        manager.requestLocationUpdates(provider, 5000, 1, listener);
     }
 
     private void navigateTo(Location location) {
-        if(isFirstLocate){//不知道干嘛的
-            LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
-            baiduMap.animateMapStatus(update);
-            update = MapStatusUpdateFactory.zoomTo(16f);
-            baiduMap.animateMapStatus(update);
-            isFirstLocate = false;
+        if (isFirstLocate) {//不知道干嘛的
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
+//            baiduMap.animateMapStatus(update);
+//            update = MapStatusUpdateFactory.zoomTo(19f);//3-23,数值越大，精度越高
+//            baiduMap.animateMapStatus(update);
+            MapStatusUpdate update = MapStatusUpdateFactory.newLatLngZoom(latLng,16f);
+            baiduMap.setMapStatus(update);
+            isFirstLocate = false;//标记第一次访问
         }
     }
+
     LocationListener listener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            navigateTo(location);
+            if (location != null) {
+                navigateTo(location);
+            }
         }
 
         @Override
@@ -108,6 +129,7 @@ public class AroundActivity extends Activity {
 
         }
     };
+
     @OnClick(R.id.many_top_back)
     void OnBack() {
         finish();
@@ -129,5 +151,10 @@ public class AroundActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        manager.removeUpdates(listener);
     }
+
 }

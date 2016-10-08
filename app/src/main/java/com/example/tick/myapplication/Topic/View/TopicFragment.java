@@ -54,6 +54,7 @@ public class TopicFragment extends Fragment implements TopicView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_topic_topic, container, false);
+//        view = inflater.inflate(R.layout.topic_top_community_info, container, false);
         ButterKnife.bind(this, view);
         initView();
         return view;

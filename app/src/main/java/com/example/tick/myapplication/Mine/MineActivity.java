@@ -110,7 +110,7 @@ public class MineActivity extends Fragment implements MineView{
 //        docheckInfo(sharedPreferences.getString("user_card", ""), sharedPreferences.getString("user_approver", ""));
         Picasso.with(getActivity()).load(new MyData().getBaseUrl() + sharedPreferences.getString("user_head", ""))//加载头像
                 .placeholder(R.mipmap.head)
-                .error(R.mipmap.head).resize(80, 80)
+                .error(R.mipmap.head)
                 .transform(new CircleTransform()).into(usericon);
     }
 

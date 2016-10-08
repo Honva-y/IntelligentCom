@@ -29,6 +29,8 @@ public class UserLoginPresenter {
     private static final int SUCCESS = 0;
     private static final int ACCOUNT_ERROE = 1;
     private static final int NETWORK_ERROR = 2;
+    private static final int COMPLETE = 3;
+    private static final int NOT_COMPLETE = 4;
     SharedPreferences sharedPreferences;
     public UserLoginPresenter(LoginActivity view) {
         this.view = view;
@@ -60,10 +62,16 @@ public class UserLoginPresenter {
                                 Gson gson = new Gson();
                                 UserAll userAll = gson.fromJson(json, UserAll.class);
                                 if (userAll.getSendCode().getCode() == 1) {//1为登录成功，0为登录失败
-                                    keepAccountAndPassword(account, password);
-                                    keepUserInfo(userAll);
+                                    keepAccountAndPassword(account, password);//保存账户密码信息
+                                    keepUserInfo(userAll);//将数据保存在文件中
+                                    String carId = userAll.getUserVo().getUser().getUser_card();
                                     message.what = SUCCESS;
                                     message.arg1 = userAll.getUserVo().getUser().getUser_id();
+
+                                    if(carId.equals(""))//判断是否信息完善
+                                        message.arg2 = NOT_COMPLETE;
+                                    else
+                                        message.arg2 = COMPLETE;
                                 } else {
                                     message.what = ACCOUNT_ERROE;
                                 }

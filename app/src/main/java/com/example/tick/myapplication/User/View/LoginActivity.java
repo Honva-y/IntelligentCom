@@ -15,6 +15,7 @@ import com.example.tick.myapplication.MainActivity;
 import com.example.tick.myapplication.MyView.ClearEditText;
 import com.example.tick.myapplication.R;
 import com.example.tick.myapplication.User.Entity.UserId;
+import com.example.tick.myapplication.User.View.Imp.CompleteInfoActivity;
 import com.example.tick.myapplication.User.View.Imp.ForgetPwActivity;
 import com.example.tick.myapplication.User.Presenter.Imp.UserLoginPresenter;
 import com.example.tick.myapplication.User.View.Imp.RegisterView;
@@ -35,6 +36,8 @@ public class LoginActivity extends Activity implements DialogInterface.OnKeyList
     ClearEditText account;
     @BindView(R.id.login_et_password)
     ClearEditText password;
+    private static final int COMPLETE = 3;
+    private static final int NOT_COMPLETE = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class LoginActivity extends Activity implements DialogInterface.OnKeyList
         presenter = new UserLoginPresenter(this);
         initView();
     }
+
     //初始化控件
     private void initView() {
         getAccountAndPassword();//获取账号密码
@@ -52,6 +56,7 @@ public class LoginActivity extends Activity implements DialogInterface.OnKeyList
         pDialog.setCancelable(false);
         pDialog.setOnKeyListener(this);
     }
+
     //获取登陆成功过的账号密码
     private void getAccountAndPassword() {
         sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
@@ -92,7 +97,7 @@ public class LoginActivity extends Activity implements DialogInterface.OnKeyList
 
 
     //是否登录成功
-   public Handler handler = new Handler() {
+    public Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             this.obtainMessage();
@@ -100,11 +105,16 @@ public class LoginActivity extends Activity implements DialogInterface.OnKeyList
             switch (msg.what) {
                 case 0://成功
                     pDialog.dismiss();
-                    Utils.showToast(LoginActivity.this, "登陆成功");
                     account.addShakeAnimation();//抖动无效，不知道什么原因
-                    UserId.getInstance().setUser_id(msg.arg1);
-//                    Log.d("aaaaaaaa", "handleMessage: "+msg.arg1);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));//将用户id传递过去
+                    UserId.getInstance().setUser_id(msg.arg1);//用sharefrefener代替
+                    if (msg.arg2 == COMPLETE) {
+                        Utils.showToast(LoginActivity.this, "登陆成功");
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    }
+                    else if (msg.arg2 == NOT_COMPLETE) {
+                        Utils.showToast(LoginActivity.this, "请先完善信息");
+                        startActivity(new Intent(LoginActivity.this, CompleteInfoActivity.class));
+                    }
                     finish();
                     break;
                 case 1://失败
@@ -128,7 +138,7 @@ public class LoginActivity extends Activity implements DialogInterface.OnKeyList
 
     @Override
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-        if(pDialog==dialog){
+        if (pDialog == dialog) {
             pDialog.dismiss();
         }
         return true;

@@ -39,7 +39,6 @@ public class RegisterMod implements UserModel {
             getCode(request,listeren);
         } else if ((int) o2 == REGISTER) {
             RegisterEntity entity = (RegisterEntity) o1;
-            Log.d("aaaa", "doPost: " + entity.getUser_account());
             RequestBody body = new FormBody.Builder().add("user_account", entity.getUser_account()).add("user_password",entity.getUser_password()).build();
             request = new Request.Builder().url(new MyData().getRegisterUrl()).post(body).build();
             registerUser(request,listeren);
@@ -57,9 +56,11 @@ public class RegisterMod implements UserModel {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String json = response.body().string().toString();
+                String myjson = response.body().string().toString();
+//                Log.d("bbbb1", "onResponse: "+myjson);
                 response.close();
-                BackCode backCode= new Gson().fromJson(json,BackCode.class);
+                BackCode backCode = new Gson().fromJson(myjson,BackCode.class);
+//                Log.d("bbbb3", "onResponse: "+backCode.getCode()+","+backCode.getMessage());
                 listeren.onSuccess(backCode,REGISTER);
             }
         });
@@ -76,8 +77,11 @@ public class RegisterMod implements UserModel {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string().toString();
+                Log.d("getcode", "onResponse: "+json);
                 response.close();
                 MessageCode messageCode = new Gson().fromJson(json,MessageCode.class);
+                Log.d("getcode", "onResponse: "+messageCode.getNumber());
+
                 listeren.onSuccess(messageCode,GET_CODE);
             }
         });
