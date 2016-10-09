@@ -32,8 +32,10 @@ public class SuggestModel implements PropertyModel<SparseArray> {
                 @Override
                 public void run() {
                     client = new OkHttpClient();
-                    Log.d("aaaa", "run: "+sparseArray.get(0));
-                    RequestBody body = new FormBody.Builder().add("complains_userid", sparseArray.get(0).toString()).add("complains_content", sparseArray.get(1).toString()).build();
+                    RequestBody body = new FormBody.Builder().add("user_id", sparseArray.get(0).toString())
+                            .add("complains_title","1")
+                            .add("usertype_id",1+"")
+                            .add("complains_content", sparseArray.get(1).toString()).build();
                     Request request = new Request.Builder().url(new MyData().getSuggestUrl()).post(body).build();
                     Call call = client.newCall(request);
                     call.enqueue(new Callback() {
@@ -45,8 +47,8 @@ public class SuggestModel implements PropertyModel<SparseArray> {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String mess = response.body().string().toString();
+                            Log.d("aaaaa", "投诉建议信息: "+mess);
                             listener.onSuccess( new Gson().fromJson(mess, BackCode.class));
-                            Log.d("aaa", "投诉建议: "+mess);
                         }
                     });
                 }

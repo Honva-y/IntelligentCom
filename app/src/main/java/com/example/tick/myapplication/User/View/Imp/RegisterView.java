@@ -74,7 +74,7 @@ public class RegisterView extends Activity implements UserView {
     @OnClick(R.id.register_bt_getcode)
     void onGetCode() {
         if (isRightPhoto())//获取验证码
-            onPersenter("", GET_CODE);
+            onPersenter(et_photo.getText().toString().trim(), GET_CODE);
         et_code.requestFocus();
     }
 
@@ -113,11 +113,9 @@ public class RegisterView extends Activity implements UserView {
             message.obj = ((MessageCode) o).getSendCode().getMessage();//状态信息
             message.what = ((MessageCode) o).getSendCode().getCode(); //状态码
             message.arg1 = Integer.parseInt(((MessageCode) o).getNumber());
-            Log.d("bbbb", "GET_CODE: "+((MessageCode) o).getSendCode().getCode());
         }else if(o2==REGISTER){
             message.obj = ((BackCode)o).getMessage();
             message.what = ((BackCode)o).getCode();
-            Log.d("bbbb2", " REGISTER:"+((BackCode)o).getCode()+",what:"+message.what);
         }
         handler.sendMessage(message);
     }

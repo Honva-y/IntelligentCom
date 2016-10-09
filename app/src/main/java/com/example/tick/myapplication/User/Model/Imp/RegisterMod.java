@@ -35,7 +35,9 @@ public class RegisterMod implements UserModel {
     @Override
     public void doPost(Object o1, Object o2, final UserListeren listeren) {
         if ((int) o2 == GET_CODE) {
-            request = new Request.Builder().url(new MyData().getGetCode()).build();
+            String photo = (String) o1;
+            RequestBody body = new FormBody.Builder().add("user_account",photo).build();
+            request = new Request.Builder().url(new MyData().getGetCode()).post(body).build();
             getCode(request,listeren);
         } else if ((int) o2 == REGISTER) {
             RegisterEntity entity = (RegisterEntity) o1;

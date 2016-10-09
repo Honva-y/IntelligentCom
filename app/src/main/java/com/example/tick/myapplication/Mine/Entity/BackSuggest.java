@@ -8,22 +8,22 @@ import java.util.List;
 public class BackSuggest {
 
     /**
-     * message : 修改成功!
+     * message : 获取成功!
      * code : 1
      */
 
     private SendCodeBean SendCode;
     /**
-     * complains_title :
-     * complains_replytime : null
-     * complains_phone :
-     * complains_id : 0
-     * complains_usertype : 0
-     * complains_content :
+     * complains_title : 蛋疼
+     * complains_replytime : {"nanos":0,"time":1473733484000,"minutes":24,"seconds":44,"hours":10,"month":8,"timezoneOffset":-480,"year":116,"day":2,"date":13}
+     * complains_phone : 13526354456
+     * complains_id : 1
+     * complains_usertype : 3
+     * complains_content : 啦啦啦
      * complains_state : 0
-     * complains_datetime : null
-     * complains_replycontent :
-     * complains_userid : 0
+     * complains_datetime : {"nanos":0,"time":1470018236000,"minutes":23,"seconds":56,"hours":10,"month":7,"timezoneOffset":-480,"year":116,"day":1,"date":1}
+     * complains_replycontent : 我dsfa
+     * complains_userid : 1
      */
 
     private List<ComplainsBean> Complains;
@@ -67,13 +67,39 @@ public class BackSuggest {
 
     public static class ComplainsBean {
         private String complains_title;
-        private Object complains_replytime;
+        /**
+         * nanos : 0
+         * time : 1473733484000
+         * minutes : 24
+         * seconds : 44
+         * hours : 10
+         * month : 8
+         * timezoneOffset : -480
+         * year : 116
+         * day : 2
+         * date : 13
+         */
+
+        private ComplainsReplytimeBean complains_replytime;
         private String complains_phone;
         private int complains_id;
         private int complains_usertype;
         private String complains_content;
         private int complains_state;
-        private Object complains_datetime;
+        /**
+         * nanos : 0
+         * time : 1470018236000
+         * minutes : 23
+         * seconds : 56
+         * hours : 10
+         * month : 7
+         * timezoneOffset : -480
+         * year : 116
+         * day : 1
+         * date : 1
+         */
+
+        private ComplainsDatetimeBean complains_datetime;
         private String complains_replycontent;
         private int complains_userid;
 
@@ -85,11 +111,11 @@ public class BackSuggest {
             this.complains_title = complains_title;
         }
 
-        public Object getComplains_replytime() {
+        public ComplainsReplytimeBean getComplains_replytime() {
             return complains_replytime;
         }
 
-        public void setComplains_replytime(Object complains_replytime) {
+        public void setComplains_replytime(ComplainsReplytimeBean complains_replytime) {
             this.complains_replytime = complains_replytime;
         }
 
@@ -133,11 +159,11 @@ public class BackSuggest {
             this.complains_state = complains_state;
         }
 
-        public Object getComplains_datetime() {
+        public ComplainsDatetimeBean getComplains_datetime() {
             return complains_datetime;
         }
 
-        public void setComplains_datetime(Object complains_datetime) {
+        public void setComplains_datetime(ComplainsDatetimeBean complains_datetime) {
             this.complains_datetime = complains_datetime;
         }
 
@@ -155,6 +181,192 @@ public class BackSuggest {
 
         public void setComplains_userid(int complains_userid) {
             this.complains_userid = complains_userid;
+        }
+
+        public static class ComplainsReplytimeBean {
+            private int nanos;
+            private long time;
+            private int minutes;
+            private int seconds;
+            private int hours;
+            private int month;
+            private int timezoneOffset;
+            private int year;
+            private int day;
+            private int date;
+
+            public int getNanos() {
+                return nanos;
+            }
+
+            public void setNanos(int nanos) {
+                this.nanos = nanos;
+            }
+
+            public long getTime() {
+                return time;
+            }
+
+            public void setTime(long time) {
+                this.time = time;
+            }
+
+            public int getMinutes() {
+                return minutes;
+            }
+
+            public void setMinutes(int minutes) {
+                this.minutes = minutes;
+            }
+
+            public int getSeconds() {
+                return seconds;
+            }
+
+            public void setSeconds(int seconds) {
+                this.seconds = seconds;
+            }
+
+            public int getHours() {
+                return hours;
+            }
+
+            public void setHours(int hours) {
+                this.hours = hours;
+            }
+
+            public int getMonth() {
+                return month;
+            }
+
+            public void setMonth(int month) {
+                this.month = month;
+            }
+
+            public int getTimezoneOffset() {
+                return timezoneOffset;
+            }
+
+            public void setTimezoneOffset(int timezoneOffset) {
+                this.timezoneOffset = timezoneOffset;
+            }
+
+            public int getYear() {
+                return year;
+            }
+
+            public void setYear(int year) {
+                this.year = year;
+            }
+
+            public int getDay() {
+                return day;
+            }
+
+            public void setDay(int day) {
+                this.day = day;
+            }
+
+            public int getDate() {
+                return date;
+            }
+
+            public void setDate(int date) {
+                this.date = date;
+            }
+        }
+
+        public static class ComplainsDatetimeBean {
+            private int nanos;
+            private long time;
+            private int minutes;
+            private int seconds;
+            private int hours;
+            private int month;
+            private int timezoneOffset;
+            private int year;
+            private int day;
+            private int date;
+
+            public int getNanos() {
+                return nanos;
+            }
+
+            public void setNanos(int nanos) {
+                this.nanos = nanos;
+            }
+
+            public long getTime() {
+                return time;
+            }
+
+            public void setTime(long time) {
+                this.time = time;
+            }
+
+            public int getMinutes() {
+                return minutes;
+            }
+
+            public void setMinutes(int minutes) {
+                this.minutes = minutes;
+            }
+
+            public int getSeconds() {
+                return seconds;
+            }
+
+            public void setSeconds(int seconds) {
+                this.seconds = seconds;
+            }
+
+            public int getHours() {
+                return hours;
+            }
+
+            public void setHours(int hours) {
+                this.hours = hours;
+            }
+
+            public int getMonth() {
+                return month;
+            }
+
+            public void setMonth(int month) {
+                this.month = month;
+            }
+
+            public int getTimezoneOffset() {
+                return timezoneOffset;
+            }
+
+            public void setTimezoneOffset(int timezoneOffset) {
+                this.timezoneOffset = timezoneOffset;
+            }
+
+            public int getYear() {
+                return year;
+            }
+
+            public void setYear(int year) {
+                this.year = year;
+            }
+
+            public int getDay() {
+                return day;
+            }
+
+            public void setDay(int day) {
+                this.day = day;
+            }
+
+            public int getDate() {
+                return date;
+            }
+
+            public void setDate(int date) {
+                this.date = date;
+            }
         }
     }
 }

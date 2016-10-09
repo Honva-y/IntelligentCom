@@ -5,11 +5,27 @@ package com.example.tick.myapplication.Mine.Entity;
  */
 public class UserInfo {
     String user_account;
-    String user_nickname;
     String user_card;
     String user_realname;
-    String user_community;
+    String floornumber;
+    String roomnumber;
     String user_email;
+
+    public String getFloornumber() {
+        return floornumber;
+    }
+
+    public void setFloornumber(String floornumber) {
+        this.floornumber = floornumber;
+    }
+
+    public String getRoomnumber() {
+        return roomnumber;
+    }
+
+    public void setRoomnumber(String roomnumber) {
+        this.roomnumber = roomnumber;
+    }
 
     public String getUser_account() {
         return user_account;
@@ -19,13 +35,6 @@ public class UserInfo {
         this.user_account = user_account;
     }
 
-    public String getUser_nickname() {
-        return user_nickname;
-    }
-
-    public void setUser_nickname(String user_nickname) {
-        this.user_nickname = user_nickname;
-    }
 
     public String getUser_card() {
         return user_card;
@@ -43,13 +52,6 @@ public class UserInfo {
         this.user_realname = user_realname;
     }
 
-    public String getUser_community() {
-        return user_community;
-    }
-
-    public void setUser_community(String user_community) {
-        this.user_community = user_community;
-    }
 
     public String getUser_email() {
         return user_email;

@@ -52,7 +52,6 @@ public class SuggestActivity extends Activity implements PropertyView<BackCode>{
         }else {
             array.put(1,content.getText().toString());
             persenter.postMessage(array);
-
         }
     }
     private void initView() {
@@ -64,6 +63,7 @@ public class SuggestActivity extends Activity implements PropertyView<BackCode>{
         int user_id = preferences.getInt("user_id",0);
         array.put(0,user_id);
         pDialog = new ProgressDialog(this);
+        pDialog.setMessage("提交中...");
     }
 
     @Override

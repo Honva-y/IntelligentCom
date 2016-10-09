@@ -92,7 +92,7 @@ public class ForgetPwActivity extends Activity implements UserView {
     @OnClick(R.id.forgetpw_bt_getcode)
     void onGetCode() {
         if (isRightPhoto()) {
-            presenter.doModel(null, GETCODE);
+            presenter.doModel(et_photo.getText().toString().trim(), GETCODE);
             et_code.requestFocus();
         }
     }

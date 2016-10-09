@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -36,8 +37,6 @@ public class LoginActivity extends Activity implements DialogInterface.OnKeyList
     ClearEditText account;
     @BindView(R.id.login_et_password)
     ClearEditText password;
-    private static final int COMPLETE = 3;
-    private static final int NOT_COMPLETE = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,20 +104,23 @@ public class LoginActivity extends Activity implements DialogInterface.OnKeyList
             switch (msg.what) {
                 case 0://成功
                     pDialog.dismiss();
-                    account.addShakeAnimation();//抖动无效，不知道什么原因
                     UserId.getInstance().setUser_id(msg.arg1);//用sharefrefener代替
-                    if (msg.arg2 == COMPLETE) {
+                    if (msg.arg2 == UserLoginPresenter.COMPLETE) {
+                        finish();
                         Utils.showToast(LoginActivity.this, "登陆成功");
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    }
-                    else if (msg.arg2 == NOT_COMPLETE) {
+                    } else if (msg.arg2 == UserLoginPresenter.NOT_COMPLETE) {
+                        finish();
                         Utils.showToast(LoginActivity.this, "请先完善信息");
                         startActivity(new Intent(LoginActivity.this, CompleteInfoActivity.class));
+                    } else if (msg.arg2 == UserLoginPresenter.VERIFY) {
+                        new AlertDialog.Builder(LoginActivity.this).setMessage("信息审核中，请耐心等待").setPositiveButton("确定", null).show();
                     }
-                    finish();
+
                     break;
                 case 1://失败
                     pDialog.dismiss();
+                    account.addShakeAnimation();//抖动无效，不知道什么原因
                     Utils.showToast(LoginActivity.this, "账号密码错误");
                     password.setText("");
                     break;

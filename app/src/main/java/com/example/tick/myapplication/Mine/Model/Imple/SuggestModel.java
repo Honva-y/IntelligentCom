@@ -42,7 +42,7 @@ public class SuggestModel implements MineModel{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String suggest = response.body().string().toString();
-//                Log.d("aaaa1", "onResponse: "+suggest);
+                Log.d("aaaa1", "onResponse: "+suggest);
                 BackSuggest backSuggest = new Gson().fromJson(suggest,BackSuggest.class);
                 //将数据转化成对象数组
 //                Log.d("aaaa2", "onResponse: "+backSuggest.getComplains().size());

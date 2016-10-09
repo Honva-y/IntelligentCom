@@ -40,7 +40,9 @@ public class ForgetPwMod implements UserModel {
             @Override
             public void run() {
                 if((int)o2==GETCODE){//获取验证码
-                    request = new Request.Builder().url(new MyData().getGetCode()).build();
+                    String photo = (String) o;
+                    RequestBody body = new FormBody.Builder().add("user_account",photo).build();
+                    request = new Request.Builder().url(new MyData().getGetCode()).post(body).build();
                     Call call = client.newCall(request);
                     call.enqueue(new Callback() {
                         @Override

@@ -26,7 +26,8 @@
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:singleLine="true"
-            android:textSize="@dimen/text_normal_size" />
+            android:textSize="@dimen/text_normal_size"
+            />
     </LinearLayout>
 
     <ImageView
@@ -54,10 +55,10 @@
             android:hint="身份证号码(必填)"
             android:maxLength="18"
             android:maxLines="1"
-
             android:paddingLeft="10dp"
             android:singleLine="true"
-            android:textSize="@dimen/text_normal_size" />
+            android:textSize="@dimen/text_normal_size"
+            />
     </LinearLayout>
 
     <ImageView
@@ -80,9 +81,41 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_weight="2"
-            android:id="@+id/conplete_et_community"
+            android:id="@+id/house_floornumber"
             android:background="@null"
-            android:hint="居住小区(必填)"
+            android:hint="楼号(必填)"
+            android:inputType="number"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="@dimen/text_normal_size"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/colorLine" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:paddingRight="20dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="2"
+            android:id="@+id/house_roomnumber"
+            android:background="@null"
+            android:hint="房号(必填)"
+            android:inputType="number"
             android:maxLength="15"
             android:maxLines="1"
             android:paddingLeft="10dp"
@@ -117,7 +150,9 @@
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:singleLine="true"
-            android:textSize="@dimen/text_normal_size" />
+            android:textSize="@dimen/text_normal_size"
+            />
+
     </LinearLayout>
 
     <ImageView

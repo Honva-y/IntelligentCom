@@ -29,9 +29,11 @@ public class UserLoginPresenter {
     private static final int SUCCESS = 0;
     private static final int ACCOUNT_ERROE = 1;
     private static final int NETWORK_ERROR = 2;
-    private static final int COMPLETE = 3;
-    private static final int NOT_COMPLETE = 4;
+    public static final int COMPLETE = 3;
+    public static final int NOT_COMPLETE = 4;
+    public static final int VERIFY = 5;
     SharedPreferences sharedPreferences;
+
     public UserLoginPresenter(LoginActivity view) {
         this.view = view;
         client = new OkHttpClient.Builder().build();
@@ -44,7 +46,6 @@ public class UserLoginPresenter {
                 final Message message = new Message();
                 try {
                     RequestBody body = new FormBody.Builder().add("user_account", account).add("user_password", password).build();
-//                    Log.d("aaaaa", "run: "+new MyData().getLoginUrl());
                     Request request = new Request.Builder().url(new MyData().getLoginUrl()).post(body).build();
                     Call call = client.newCall(request);
                     call.enqueue(new Callback() {
@@ -53,30 +54,29 @@ public class UserLoginPresenter {
                             message.what = NETWORK_ERROR;
                             view.handler.sendMessage(message);
                         }
+
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            if(response.isSuccessful()) {
-                                String json = response.body().string().toString();
-//                                Log.d("aaaa", "onResponse: "+json);
-                                //获取数据
-                                Gson gson = new Gson();
-                                UserAll userAll = gson.fromJson(json, UserAll.class);
-                                if (userAll.getSendCode().getCode() == 1) {//1为登录成功，0为登录失败
-                                    keepAccountAndPassword(account, password);//保存账户密码信息
-                                    keepUserInfo(userAll);//将数据保存在文件中
-                                    String carId = userAll.getUserVo().getUser().getUser_card();
-                                    message.what = SUCCESS;
-                                    message.arg1 = userAll.getUserVo().getUser().getUser_id();
+                            String json = response.body().string().toString();
+                            //获取数据
+                            Gson gson = new Gson();
+                            UserAll userAll = gson.fromJson(json, UserAll.class);
+                            if (userAll.getSendCode().getCode() == 1) {//1为登录成功，0为登录失败
+                                keepAccountAndPassword(account, password);//保存账户密码信息
+                                keepUserInfo(userAll);//将数据保存在文件中
+                                String carId = userAll.getUserVo().getUser().getUser_card();
+                                String appro = userAll.getUserVo().getUser().getUser_approver();
+                                message.what = SUCCESS;
+                                message.arg1 = userAll.getUserVo().getUser().getUser_id();
 
-                                    if(carId.equals(""))//判断是否信息完善
-                                        message.arg2 = NOT_COMPLETE;
-                                    else
-                                        message.arg2 = COMPLETE;
-                                } else {
-                                    message.what = ACCOUNT_ERROE;
-                                }
-                            }else{
-                                message.what = NETWORK_ERROR;
+                                if (carId.equals(""))//判断是否信息完善
+                                    message.arg2 = NOT_COMPLETE;
+                                else if (!carId.equals("") && appro.equals(""))
+                                    message.arg2 = VERIFY;
+                                else if (!carId.equals("") && !appro.equals(""))
+                                    message.arg2 = COMPLETE;
+                            } else {
+                                message.what = ACCOUNT_ERROE;
                             }
                             view.handler.sendMessage(message);
                         }
@@ -95,22 +95,23 @@ public class UserLoginPresenter {
         editor.putString("password", password);
         editor.commit();
     }
-    public void keepUserInfo(UserAll userAll){//保存用户信息
-        SharedPreferences.Editor editor = view.getSharedPreferences("userInfo",Context.MODE_PRIVATE).edit();
+
+    public void keepUserInfo(UserAll userAll) {//保存用户信息
+        SharedPreferences.Editor editor = view.getSharedPreferences("userInfo", Context.MODE_PRIVATE).edit();
         editor.clear();
-        editor.putString("user_nickname",userAll.getUserVo().getUser().getUser_nickname());//昵称
-        editor.putString("user_type",userAll.getUserVo().getUsertype().getUsertype_name());//用户类型
-        editor.putString("user_photo",userAll.getUserVo().getUser().getUser_account()); //手机号码
-        editor.putString("user_sex",userAll.getUserVo().getUser().getUser_sex()); //性别
-        editor.putString("user_community",userAll.getUserVo().getCommunity().getCommunity_name()); //小区
-        editor.putString("user_email",userAll.getUserVo().getUser().getUser_email()); //邮箱
-        editor.putString("user_card",userAll.getUserVo().getUser().getUser_card()); //身份证
-        editor.putString("user_approver",userAll.getUserVo().getUser().getUser_approver());//审核人
-        editor.putString("user_password",userAll.getUserVo().getUser().getUser_password());//用户密码
-        editor.putString("user_head",userAll.getUserVo().getUser().getUser_head()); //图片路径
+        editor.putString("user_nickname", userAll.getUserVo().getUser().getUser_nickname());//昵称
+        editor.putString("user_type", userAll.getUserVo().getUsertype().getUsertype_name());//用户类型
+        editor.putString("user_photo", userAll.getUserVo().getUser().getUser_account()); //手机号码
+        editor.putString("user_sex", userAll.getUserVo().getUser().getUser_sex()); //性别
+        editor.putString("user_community", userAll.getUserVo().getCommunity().getCommunity_name()); //小区
+        editor.putString("user_email", userAll.getUserVo().getUser().getUser_email()); //邮箱
+        editor.putString("user_card", userAll.getUserVo().getUser().getUser_card()); //身份证
+        editor.putString("user_approver", userAll.getUserVo().getUser().getUser_approver());//审核人
+        editor.putString("user_password", userAll.getUserVo().getUser().getUser_password());//用户密码
+        editor.putString("user_head", userAll.getUserVo().getUser().getUser_head()); //图片路径
 //        Log.d("bbb3", "keepUserInfo: "+userAll.getUserVo().getUser().getUser_id());
 //        new MyData().setUser_id(userAll.getUserVo().getUser().getUser_id());//设置成全局变量
-        editor.putInt("user_id",userAll.getUserVo().getUser().getUser_id()); //用户id用户后期查询
+        editor.putInt("user_id", userAll.getUserVo().getUser().getUser_id()); //用户id用户后期查询
 //        Log.d("bbb1", "keepUserInfo: "+userAll.getUserVo().getUser().getUser_head());
 //        Log.d("bbb2", "keepUserInfo: "+userAll.getUserVo().getUser().getUser_approver());
         editor.commit();
