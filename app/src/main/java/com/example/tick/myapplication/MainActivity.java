@@ -1,6 +1,9 @@
 package com.example.tick.myapplication;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -11,7 +14,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,10 +27,13 @@ import com.example.tick.myapplication.Mine.MineActivity;
 import com.example.tick.myapplication.MyView.ActivityTask;
 import com.example.tick.myapplication.Propery.View.Imple.PropreyActivity;
 import com.example.tick.myapplication.Topic.TopicActivity;
+import com.example.tick.myapplication.Topic.View.AddTopic;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,21 +43,21 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private List<Fragment> fragments;
     private HomeActivity homeActivity;
     private MineActivity mineActivity;
-    private PropreyActivity propreyActivity;
+    //    private PropreyActivity propreyActivity;
     private TopicActivity topicActivity;
     private FragmentPagerAdapter pagerAdapter;
     private static final int TAKE_PHOTO = 1;
     private static final int CHOSE_PICTURE = 2;
     private static final int CROP_PHOTO = 3;
-    //    private int user_id;
-    public Uri tempUri;
+    private int user_id;
+    private SharedPreferences preference;
     @BindView(R.id.viewpager)
     ViewPager viewPager;
     //导航栏布局
     @BindView(R.id.home)
     LinearLayout home;
-    @BindView(R.id.propery)
-    LinearLayout proprey;
+    //    @BindView(R.id.propery)
+//    LinearLayout proprey;
     @BindView(R.id.mine)
     LinearLayout mine;
     @BindView(R.id.topic)
@@ -57,8 +65,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     //导航栏文字
     @BindView(R.id.main_tv_home)
     TextView tv_home;
-    @BindView(R.id.main_tv_proprey)
-    TextView tv_proprey;
+    //    @BindView(R.id.main_tv_proprey)
+//    TextView tv_proprey;
     @BindView(R.id.main_tv_mine)
     TextView tv_mine;
     @BindView(R.id.main_tv_topic)
@@ -66,8 +74,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     //导航栏图片
     @BindView(R.id.main_iv_home)
     ImageView iv_home;
-    @BindView(R.id.main_iv_proprey)
-    ImageView iv_proprey;
+    //    @BindView(R.id.main_iv_proprey)
+//    ImageView iv_proprey;
     @BindView(R.id.main_iv_mine)
     ImageView iv_mine;
     @BindView(R.id.main_iv_topic)
@@ -84,15 +92,17 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     private void initView() {
         ActivityTask.getInstance().addActivity(this);//管理activyty
+        preference = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        user_id = preference.getInt("user_id", 0);
         //初始化
         homeActivity = new HomeActivity();
         mineActivity = new MineActivity();//将task传入，修改密码时候可以结束掉所有activity
-        propreyActivity = new PropreyActivity();
+//        propreyActivity = new PropreyActivity();//物业管理合并到主页
         topicActivity = new TopicActivity();
 
         fragments = new ArrayList<>();
         fragments.add(homeActivity);
-        fragments.add(propreyActivity);
+//        fragments.add(propreyActivity);
         fragments.add(topicActivity);
         fragments.add(mineActivity);
         //配置适配器
@@ -107,7 +117,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                 return fragments.size();
             }
         };
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(2);//什么意思？
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this);
     }
@@ -117,19 +127,24 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         viewPager.setCurrentItem(0);
     }
 
-    @OnClick(R.id.propery)
-    void OnClickPropery() {
-        viewPager.setCurrentItem(1);
+    //
+//    @OnClick(R.id.propery)
+//    void OnClickPropery() {
+//        viewPager.setCurrentItem(1);
+//    }
+    @OnClick(R.id.topic_add)
+    void OnAddTopic() {
+        startActivity(new Intent(MainActivity.this, AddTopic.class).putExtra("title", "发表话题").putExtra("user_id", user_id));
     }
 
     @OnClick(R.id.topic)
     void OnClickTopic() {
-        viewPager.setCurrentItem(2);
+        viewPager.setCurrentItem(1);
     }
 
     @OnClick(R.id.mine)
     void OnClickMine() {
-        viewPager.setCurrentItem(3);
+        viewPager.setCurrentItem(2);
     }
 
     @Override
@@ -143,19 +158,19 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         switch (position) {
             case 0:
                 iv_home.setImageResource(R.mipmap.home1);
-                tv_home.setTextColor(getResources().getColor(R.color.colorBlue));
+                tv_home.setTextColor(getResources().getColor(R.color.colorHomeText));
                 break;
+//            case 1:
+//                iv_proprey.setImageResource(R.mipmap.proprey1);
+//                tv_proprey.setTextColor(getResources().getColor(R.color.colorBlue));
+//                break;
             case 1:
-                iv_proprey.setImageResource(R.mipmap.proprey1);
-                tv_proprey.setTextColor(getResources().getColor(R.color.colorBlue));
+                iv_topic.setImageResource(R.mipmap.topic1);
+                tv_topic.setTextColor(getResources().getColor(R.color.colorHomeText));
                 break;
             case 2:
-                iv_topic.setImageResource(R.mipmap.topic1);
-                tv_topic.setTextColor(getResources().getColor(R.color.colorBlue));
-                break;
-            case 3:
                 iv_mine.setImageResource(R.mipmap.mine1);
-                tv_mine.setTextColor(getResources().getColor(R.color.colorBlue));
+                tv_mine.setTextColor(getResources().getColor(R.color.colorHomeText));
                 break;
         }
     }
@@ -168,11 +183,11 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     //重新设置字体的颜色，图片
     public void reSetTextColor() {
         tv_home.setTextColor(getResources().getColor(R.color.colorText));
-        tv_proprey.setTextColor(getResources().getColor(R.color.colorText));
+//        tv_proprey.setTextColor(getResources().getColor(R.color.colorText));
         tv_topic.setTextColor(getResources().getColor(R.color.colorText));
         tv_mine.setTextColor(getResources().getColor(R.color.colorText));
         iv_home.setImageResource(R.mipmap.home0);
-        iv_proprey.setImageResource(R.mipmap.propery0);
+//        iv_proprey.setImageResource(R.mipmap.propery0);
         iv_topic.setImageResource(R.mipmap.topic0);
         iv_mine.setImageResource(R.mipmap.mine0);
     }
@@ -243,5 +258,13 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             cursor.close();
         }
         return path;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Utils.clickTwic(this);
+        }
+        return false;
     }
 }

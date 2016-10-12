@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/many_top_back_title"></include>
@@ -95,10 +96,15 @@
             android:paddingTop="5dp"
             android:textColor="@color/colorRed"
             android:textSize="@dimen/text_normal_size" />
-
-        <Button
+        <com.andexert.library.RippleView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/payment_bt_ok"
-            android:layout_width="0dp"
+            app:rv_rippleDuration="150"
+            android:layout_margin="5dp"
+            >
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
@@ -106,6 +112,8 @@
             android:text="缴 费"
             android:textColor="@color/white"
             android:textSize="@dimen/button_text_size" />
+        </com.andexert.library.RippleView>
+
     </LinearLayout>
 
 </LinearLayout>

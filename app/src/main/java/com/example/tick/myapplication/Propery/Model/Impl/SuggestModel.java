@@ -37,6 +37,7 @@ public class SuggestModel implements PropertyModel<SparseArray> {
                             .add("usertype_id",1+"")
                             .add("complains_content", sparseArray.get(1).toString()).build();
                     Request request = new Request.Builder().url(new MyData().getSuggestUrl()).post(body).build();
+//                    Log.d("aaaaa", "投诉建议信息:user_id: "+sparseArray.get(0).toString()+",complains_content:"+sparseArray.get(1).toString());
                     Call call = client.newCall(request);
                     call.enqueue(new Callback() {
                         @Override

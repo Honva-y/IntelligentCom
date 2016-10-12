@@ -1,6 +1,7 @@
 package com.example.tick.myapplication.Topic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,8 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tick.myapplication.GlobalValue.MyData;
+import com.example.tick.myapplication.MainActivity;
 import com.example.tick.myapplication.MyView.CircleTransform;
 import com.example.tick.myapplication.R;
+import com.example.tick.myapplication.Topic.View.AddTopic;
 import com.example.tick.myapplication.Topic.View.InteractionFragment;
 import com.example.tick.myapplication.Topic.View.SecondhandFragment;
 import com.example.tick.myapplication.Topic.View.TopicFragment;
@@ -31,15 +34,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Tick on 2016/8/29.
  */
 public class TopicActivity extends Fragment implements ViewPager.OnPageChangeListener{
-    @BindView(R.id.top_iv_user_head)
-    ImageView user_head;
-    @BindView(R.id.top_tv_user_nick)
-    TextView user_nick;
+//    @BindView(R.id.top_iv_user_head)
+//    ImageView user_head;
+//    @BindView(R.id.top_tv_user_nick)
+//    TextView user_nick;
+
     //用butterknife框架绑定控件
 //    @BindView(R.id.topic_tv_topic)
 //    TextView tv_topic;
@@ -56,7 +61,7 @@ public class TopicActivity extends Fragment implements ViewPager.OnPageChangeLis
     private ImageView tabline;
     private int CurrentPosition = 0;//记录当前的滑动位置
     private SharedPreferences preference;
-
+    private int user_id;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +73,7 @@ public class TopicActivity extends Fragment implements ViewPager.OnPageChangeLis
 
     private void initView() {
 //        initTabLine();//初始化进度条
-        initUserInfo();
+//        initUserInfo();
         fragments = new ArrayList<>();
         TopicFragment topicFragment = new TopicFragment();
 //        InteractionFragment interactionFragment = new InteractionFragment();
@@ -94,15 +99,15 @@ public class TopicActivity extends Fragment implements ViewPager.OnPageChangeLis
         viewPager.addOnPageChangeListener(this);
     }
 
-    private void initUserInfo() {
-        preference = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        user_nick.setText(preference.getString("user_nickname","null"));
-        Picasso.with(getActivity()).load(new MyData().getBaseUrl()+preference.getString("user_head",""))
-                .placeholder(R.mipmap.head)
-                .error(R.mipmap.head).transform(new CircleTransform())
-                .into(user_head);
-        //.resize(50,50)
-    }
+//    private void initUserInfo() {
+//        preference = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+//        user_nick.setText(preference.getString("user_nickname","null"));
+//        Picasso.with(getActivity()).load(new MyData().getBaseUrl()+preference.getString("user_head",""))
+//                .placeholder(R.mipmap.head)
+//                .error(R.mipmap.head).transform(new CircleTransform())
+//                .into(user_head);
+//        user_id = preference.getInt("user_id",0);
+//    }
 
 //    private void initTabLine() {
 //        tabline= (ImageView) view.findViewById(R.id.topic_iv_tabline);
@@ -164,5 +169,8 @@ public class TopicActivity extends Fragment implements ViewPager.OnPageChangeLis
 //        tv_interation.setTextColor(getResources().getColor(R.color.colorText));
 //        tv_topic.setTextColor(getResources().getColor(R.color.colorText));
 //        tv_secondhand.setTextColor(getResources().getColor(R.color.colorText));
+//    }
+//    @OnClick(R.id.topic_add) void OnAddTopic(){
+//            startActivity(new Intent(getActivity(),AddTopic.class).putExtra("title","发表话题").putExtra("user_id",user_id));
 //    }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
     <include layout="@layout/many_top_back_title"></include>
@@ -9,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:fillViewport="true"
         android:background="@color/white"
+        android:fillViewport="true"
         android:focusable="false">
 
         <EditText
@@ -24,16 +25,21 @@
             android:textSize="@dimen/text_normal_size" />
     </ScrollView>
 
-    <Button
+    <com.andexert.library.RippleView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/suggest_bt_ok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_corners_blue"
-        android:text="确定"
-        android:textColor="@color/white"
+        app:rv_rippleDuration="150">
 
-        android:textSize="@dimen/text_normal_size" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_corners_blue"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_normal_size" />
+    </com.andexert.library.RippleView>
 </LinearLayout>

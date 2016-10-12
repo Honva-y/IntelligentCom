@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:orientation="vertical">
 
-    <com.example.tick.myapplication.MyView.ClearEditText
+    <!--<com.example.tick.myapplication.MyView.ClearEditText-->
+    <!--android:id="@+id/login_et_account"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@null"-->
+    <!--android:drawableRight="@mipmap/clear"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:hint="账号"-->
+    <!--android:inputType="phone"-->
+    <!--android:lines="1"-->
+    <!--android:maxLength="11"-->
+    <!--android:paddingBottom="15dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:drawableLeft="@mipmap/login_user"-->
+    <!--android:paddingTop="15dp"-->
+    <!--android:textColorHint="@color/colorText"-->
+    <!--&gt;-->
+    <!--</com.example.tick.myapplication.MyView.ClearEditText>-->
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/login_et_account"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@null"
-        android:drawableRight="@mipmap/clear"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:hint="账号"
-        android:inputType="phone"
+        android:inputType="number"
         android:lines="1"
         android:maxLength="11"
-        android:paddingBottom="15dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:drawableLeft="@mipmap/login_user"
-        android:paddingTop="15dp"
-        android:textColorHint="@color/colorText"
-        android:textSize="@dimen/text_normal_size">
-
-    </com.example.tick.myapplication.MyView.ClearEditText>
+        android:maxLines="1"
+        android:textSize="@dimen/text_normal_size"
+        app:met_baseColor="@color/balck"
+        app:met_floatingLabel="normal"
+        app:met_hideUnderline="true"
+        app:met_iconLeft="@mipmap/login_user"
+        app:met_clearButton="true"
+        app:met_maxCharacters="11"
+        app:met_primaryColor="@color/balck"
+        />
 
     <ImageView
         android:layout_width="match_parent"
@@ -34,24 +52,41 @@
         android:layout_marginRight="15dp"
         android:background="@color/colorLine" />
 
-
-    <com.example.tick.myapplication.MyView.ClearEditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/login_et_password"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@null"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:hint="密码"
-        android:drawableLeft="@mipmap/login_password"
-        android:inputType="textPassword"
         android:lines="1"
+        android:inputType="textPassword"
         android:maxLength="18"
-        android:paddingBottom="15dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="15dp"
-        android:textColorHint="@color/colorText"
-        android:textSize="@dimen/text_normal_size" />
+        android:textSize="@dimen/text_normal_size"
+        app:met_baseColor="@color/balck"
+        app:met_floatingLabel="normal"
+        app:met_hideUnderline="true"
+        app:met_iconLeft="@mipmap/login_password"
+        app:met_clearButton="true"
+        app:met_maxCharacters="18"
+        app:met_primaryColor="@color/balck"
+        />
+
+    <!--<com.example.tick.myapplication.MyView.ClearEditText-->
+        <!--android:id="@+id/login_et_password"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@null"-->
+        <!--android:drawableLeft="@mipmap/login_password"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:hint="密码"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:lines="1"-->
+        <!--android:maxLength="18"-->
+        <!--android:paddingBottom="15dp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp"-->
+        <!--android:paddingTop="15dp"-->
+        <!--android:textColorHint="@color/colorText"-->
+        <!--android:textSize="@dimen/text_normal_size" />-->
 
     <ImageView
         android:layout_width="match_parent"
@@ -59,4 +94,5 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@color/colorLine" />
+
 </LinearLayout>

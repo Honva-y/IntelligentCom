@@ -15,12 +15,12 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center_horizontal"
-            android:text="网络异常"
-            android:textSize="25dp" />
+            android:text="日期时间"
+            android:textSize="20dp" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="170dp"
             android:background="@color/white">
             <TextView
                 android:id="@+id/home_notifi_content"
@@ -37,9 +37,5 @@
         android:layout_height="1dp"
         android:background="#e2e2e2" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/activity_home_scroll"></include>
-    </ScrollView>
+    <include layout="@layout/home_center_service" />
 </LinearLayout>

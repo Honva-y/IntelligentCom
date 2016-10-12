@@ -2,9 +2,11 @@ package com.example.tick.myapplication.Topic.Adapter;
 
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -82,12 +84,18 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
             isVisible(holder, position);
             holder.iv_clickZan.setOnClickListener(new myClickListener(user_id, position, holder));
             holder.iv_comment.setOnClickListener(new myCommentListener(user_id,position,holder));
+            holder.delete.setOnClickListener(new myDelete(entity.getTopicList().get(position).getTopic().getTopic_id()));
+            if(user_id==entity.getTopicList().get(position).getAuthor().getUser_id()) {
+                holder.delete.setVisibility(View.VISIBLE);
+            }else{
+                holder.delete.setVisibility(View.GONE);
+            }
         }
     }
 
     private void isZanYet(TopicHolder holder, int position) {//本人是否已经点赞
         if (entity.getTopicList().get(position).isPraise())
-            holder.iv_clickZan.setImageResource(R.mipmap.zan2);
+            holder.iv_clickZan.setImageResource(R.mipmap.zan1);
         else if (!entity.getTopicList().get(position).isPraise())
             holder.iv_clickZan.setImageResource(R.mipmap.zan0);
     }
@@ -137,20 +145,36 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
 
     public String getCommentList(int size, int position) {//评论列表
         String commentList = "";
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {//循环话题数量列表
             int inSize = entity.getTopicList().get(position).getCommentVo().get(i).size();
             List<TopicEntity.TopicListBean.CommentVoBean> commentVoBeen = entity.getTopicList().get(position).getCommentVo().get(i);
-            for (int j = 0; j < inSize; j++) {
-                if (i < inSize - 1)
-                    commentList += commentVoBeen.get(j).getUser().getUser_nickname() + "：" + commentVoBeen.get(j).getComment_content() + "\n";
-                else
+            for (int j = 0; j < inSize; j++) {//循环话题评论列表
+                if (i==size-1 && j==inSize-1)
                     commentList += commentVoBeen.get(j).getUser().getUser_nickname() + "：" + commentVoBeen.get(j).getComment_content();
+                else
+                    commentList += commentVoBeen.get(j).getUser().getUser_nickname() + "：" + commentVoBeen.get(j).getComment_content() + "\n";
             }
         }
         return commentList;
     }
 
+    class myDelete implements View.OnClickListener{
+        int top_id;
+        public myDelete(int top_id) {
+            this.top_id = top_id;
+        }
 
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(parentView).setMessage("确定删除吗?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    presenter.doDelete(user_id,top_id);
+                }
+            }).setNegativeButton("取消",null).show();
+
+        }
+    }
 
     class myClickListener implements View.OnClickListener {//点赞点击监听器
         int position;
@@ -217,6 +241,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
             showPopup(holder.iv_comment);
             popupInputMethodWindow();
         }
+
         private void showPopup(View parent){
             if(popWindow==null){
                 LayoutInflater layoutInflater = (LayoutInflater) parentView.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -256,6 +281,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicHolder> {
                 }
             });
         }
+
         private void popupInputMethodWindow() {
             handler.postDelayed(new Runnable() {
                 @Override

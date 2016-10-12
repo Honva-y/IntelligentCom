@@ -12,8 +12,6 @@ import com.example.tick.myapplication.User.View.UserView;
 public class ForgetPwPre implements UserListeren,UserPresenter {
     private UserView view;
     private UserModel model;
-    private static final int GETCODE = 0;
-    private static final int GETPW = 1;
     public ForgetPwPre(UserView view) {
         this.view = view;
         model = new ForgetPwMod();

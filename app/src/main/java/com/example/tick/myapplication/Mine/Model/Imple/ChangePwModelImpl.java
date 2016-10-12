@@ -26,12 +26,13 @@ import okhttp3.Response;
 /**
  * Created by Tick on 2016/9/19.
  */
-public class ChangePwModelImpl implements MineModel<SparseArray> {
+public class ChangePwModelImpl implements MineModel {
     private OkHttpClient client;
     MinePresenter presenter;
 
     @Override
-    public void doCheck(final SparseArray arr, final MineListener listener) {
+    public void doCheck(final Object object, final MineListener listener) {
+       final SparseArray arr = (SparseArray) object;
         client = new OkHttpClient();
         try {
             new Thread(new Runnable() {

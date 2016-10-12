@@ -1,9 +1,13 @@
 package com.example.tick.myapplication.User.View.Imp;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +16,7 @@ import com.example.tick.myapplication.MyView.ClearEditText;
 import com.example.tick.myapplication.R;
 import com.example.tick.myapplication.User.Presenter.Imp.ModifyPwPre;
 import com.example.tick.myapplication.User.Presenter.UserPresenter;
+import com.example.tick.myapplication.User.View.LoginActivity;
 import com.example.tick.myapplication.User.View.UserView;
 import com.example.tick.myapplication.Utils;
 
@@ -52,6 +57,7 @@ public class ModifyPwView extends Activity implements UserView {
         if(isRightPw()){
             HashMap map = new HashMap();
             map.put("user_account",user_account);
+//            Log.d("aaaa", "onOk: "+et_pw.getText().toString().trim());
             map.put("user_password",et_pw.getText().toString().trim());
             presenter.doModel(map,null);
         }
@@ -87,14 +93,21 @@ public class ModifyPwView extends Activity implements UserView {
         Message mess = new Message();
         mess.what = backCode.getCode();
         mess.obj = backCode.getMessage();
+        handler.sendMessage(mess);
     }
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if(msg.what==1) {
-                Utils.showToast(ModifyPwView.this, "修改成功");
-                finish();
+                new AlertDialog.Builder(ModifyPwView.this).setMessage("设置成功").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(ModifyPwView.this, LoginActivity.class));
+                        finish();
+                    }
+                }).show();
+
             }else {
                 Utils.showToast(ModifyPwView.this,"服务器出错，修改失败");
             }

@@ -21,14 +21,14 @@ import java.util.List;
  */
 public class RepairAdapter extends RecyclerView.Adapter<RepairHolder> {
     private MyRepairView repairView;
-    private List<BackRepair.RepairBean> repairBean;
+    private BackRepair backRepair;
 
     public RepairAdapter(MyRepairView repairView) {
         this.repairView = repairView;
     }
 
-    public void updataData(List<BackRepair.RepairBean> repairBean) {
-        this.repairBean = repairBean;
+    public void updataData(BackRepair backRepair) {
+        this.backRepair = backRepair;
     }
 
     @Override
@@ -43,30 +43,39 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairHolder> {
 
     @Override
     public void onBindViewHolder(RepairHolder holder, int position) {
-        if (repairBean != null) {
-            holder.tv_content.setText(repairBean.get(position).getRepair_project());
-            holder.tv_date.setText(repairBean.get(position).getRepair_decldatatime() + "");
-            int state = repairBean.get(position).getRepair_state();
-            if (state == 0) {
-                holder.tv_done.setTextColor(repairView.getResources().getColor(R.color.colorRed));
-                holder.tv_done.setText("未处理.");
-            } else if (state == 1) {
-                holder.tv_done.setTextColor(repairView.getResources().getColor(R.color.colorBlue));
-                holder.tv_done.setText("已处理.");
-            } else {
-                holder.tv_done.setTextColor(repairView.getResources().getColor(R.color.colorRed));
-                holder.tv_done.setText("处理中...");
+        int year, month, date;
+        if (backRepair != null) {
+            if (backRepair.getRepair().size() != 0) {
+                holder.tv_content.setText(backRepair.getRepair().get(position).getRepair_project());
+                year = backRepair.getRepair().get(position).getRepair_decldatatime().getYear() + 1900;
+                month = backRepair.getRepair().get(position).getRepair_decldatatime().getMonth() + 1;
+                date = backRepair.getRepair().get(position).getRepair_decldatatime().getDate();
+                holder.tv_date.setText(year + "年" + month + "月" + date + "日");
+                int state = backRepair.getRepair().get(position).getRepair_state();
+                if (state == 0) {
+                    holder.tv_done.setTextColor(repairView.getResources().getColor(R.color.colorRed));
+                    holder.tv_done.setText("未处理.");
+                } else if (state == 1) {
+                    holder.tv_done.setTextColor(repairView.getResources().getColor(R.color.colorBlue));
+                    holder.tv_done.setText("已处理.");
+                } else {
+                    holder.tv_done.setTextColor(repairView.getResources().getColor(R.color.colorRed));
+                    holder.tv_done.setText("处理中...");
+                }
+                year = backRepair.getRepair().get(position).getRepair_starttime().getYear() + 1900;
+                month = backRepair.getRepair().get(position).getRepair_starttime().getMonth() + 1;
+                date = backRepair.getRepair().get(position).getRepair_starttime().getDate();
+                holder.tv_replytime.setText(year + "年" + month + "月" + date + "日");
             }
-            holder.tv_replytime.setText(repairBean.get(position).getRepair_completetime() + "");
-        }else
+        } else
             return;
     }
 
     @Override
     public int getItemCount() {
-        if (repairBean != null &&repairBean.get(0).getRepair_starttime()!=null) {
-            if ((repairBean.size() <= 3))
-                return repairBean.size();
+        if (backRepair != null) {
+            if (backRepair.getRepair().size() <= 3)
+                return backRepair.getRepair().size();
             else
                 return 3;
         } else

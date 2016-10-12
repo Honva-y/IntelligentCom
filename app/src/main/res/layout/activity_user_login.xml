@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/logo"
-            />
+            android:background="@mipmap/logo" />
     </LinearLayout>
 
     <LinearLayout
@@ -21,42 +22,50 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:gravity="center"
-        android:orientation="vertical"
-        >
-    <include layout="@layout/user_center_login"/>
+        android:orientation="vertical">
+
+        <include layout="@layout/user_center_login" />
     </LinearLayout>
-    <Button
-        android:id="@+id/login_bt_login"
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登 录"
-        android:textSize="@dimen/text_normal_size"
-        android:textColor="@color/white"
-        android:layout_margin="10dp"
-        android:background="@drawable/button_corners_blue"
-        />
+        app:rv_rippleDuration="150"
+        >
+        <Button
+            android:id="@+id/login_bt_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_corners_blue"
+            android:text="登 录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_normal_size" />
+    </com.andexert.library.RippleView>
+
     <TextView
         android:id="@+id/login_tv_forget"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="忘记密码？"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
         android:gravity="center_vertical"
-        android:textColor="@color/colorBlue"
-        />
+        android:text="忘记密码？"
+        android:textColor="@color/colorRed" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        />
+        android:layout_weight="2.5" />
+
     <Button
         android:id="@+id/login_bt_register"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="1"
-        android:text="没有账号？请注册"
-        android:textColor="@color/colorBlue"
         android:background="@color/white"
-        />
+        android:text="没有账号？请注册"
+        android:textColor="@color/colorBlue" />
 </LinearLayout>

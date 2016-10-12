@@ -16,6 +16,7 @@ import com.example.tick.myapplication.Mine.Presenter.Impl.SuggestPresenter;
 import com.example.tick.myapplication.Mine.View.MineView;
 import com.example.tick.myapplication.MyView.RecycleViewDivider;
 import com.example.tick.myapplication.R;
+import com.example.tick.myapplication.Utils;
 
 import java.util.List;
 
@@ -33,8 +34,8 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 public class MySuggestView extends Activity implements MineView {
     private ProgressDialog pDialog;
     private SuggestPresenter presenter;
-    private List<BackSuggest.ComplainsBean> Complains = null;
     private SuggestAdapter adapter;
+    private BackSuggest backSuggest;
     private String user_id;
     @BindView(R.id.mine_suggest_ptr)
     PtrFrameLayout ptrFramentLayout;
@@ -116,10 +117,16 @@ public class MySuggestView extends Activity implements MineView {
     }
 
     @Override
-    public void showSuccess(Object backSuggest) {
-        Complains = ((BackSuggest) backSuggest).getComplains();
-        Log.d("bbb", "showSuccess: " + Complains.get(0).getComplains_content() + "," + Complains.get(0).getComplains_id() + ",大小" + Complains.size());
-        adapter.updataData(Complains);
+    public void showSuccess(Object o) {
+        backSuggest = (BackSuggest) o;
+        Message message = new Message();
+        message.what = backSuggest.getSendCode().getCode();
+        message.obj = backSuggest.getSendCode().getMessage();
+        if(backSuggest.getComplains().size() == 0){
+            message.arg1 = 1;//表示没有投诉消息
+        }
+//        adapter.updataData(backSuggest);
+        handler.sendMessage(message);
     }
 
     @Override
@@ -128,4 +135,23 @@ public class MySuggestView extends Activity implements MineView {
         presenter.postUser(o);//传递无用参数，请求数据
     }
 
+    @Override
+    public void BackData(Object o, Object o2) {
+
+    }
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what==0){
+                Utils.showToast(MySuggestView.this,msg.obj.toString());
+            }else{
+                if(msg.arg1==1){
+                    Utils.showToast(MySuggestView.this,"空空如也~");
+                }else{
+                    adapter.updataData(backSuggest);
+                }
+            }
+        }
+    };
 }

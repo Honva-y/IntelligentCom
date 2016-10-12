@@ -9,7 +9,7 @@ import com.example.tick.myapplication.Mine.View.MineView;
 /**
  * Created by Tick on 2016/9/20.
  */
-public class MineImpl implements MineListener<Object>,MinePresenter{
+        public class MineImpl implements MineListener,MinePresenter{
     private MineView view;
     private MineModel model;
 
@@ -31,8 +31,17 @@ public class MineImpl implements MineListener<Object>,MinePresenter{
     }
 
     @Override
+    public void backDate(Object o, Object o2) {
+        view.hideDialog();
+        view.BackData(o,o2);
+    }
+
+    @Override
     public void postUser(Object object) {
         view.showDialog();
         model.doCheck(object,this);
     }
+
+
+
 }

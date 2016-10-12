@@ -1,186 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingTop="5dp"
+    android:layout_marginTop="20dp"
+    >
+<LinearLayout
+    android:id="@+id/ll_first"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:gravity="center"
-    android:orientation="vertical">
+    android:paddingTop="5dp"
+    >
+    <LinearLayout
+        android:id="@+id/ll_repair"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/home_iv_repair"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/repair" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="自助修理" />
+    </LinearLayout>
+
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/ll_around"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ll_repair"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/home_iv_around"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/around" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="周边地图" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_propertyfee"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ll_around"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/home_iv_propertyfee"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/property_fee1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="物业缴费" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_property_recode"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ll_propertyfee"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/home_iv_property_record"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/property_record" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="缴费记录" />
+    </LinearLayout>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="5dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/home_iv_property_suggest"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/property_suggest" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/home_iv_repair"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/repair" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="自助修理"
-                android:textSize="@dimen/text_small_size" />
-        </LinearLayout>
-        <!--        <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/home_iv_post"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/post" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="上门寄件"
-                        android:textSize="15dp" />
-                </LinearLayout>-->
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/home_iv_around"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/around" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="周 边"
-                android:textSize="@dimen/text_small_size" />
-        </LinearLayout>
-
-        <!--    <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/home_iv_education"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/education" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="家教培训"
-                    android:textSize="15dp" />
-            </LinearLayout>-->
+            android:layout_marginTop="5dp"
+            android:text="投诉建议" />
     </LinearLayout>
-    <!--  <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_weight="1"
-          android:gravity="center"
-          >
-          <LinearLayout
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:gravity="center"
-              android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/home_iv_introduction"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/introduction" />
 
-              <ImageView
-                  android:id="@+id/home_iv_housekeeping"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:src="@mipmap/housekeeping" />
 
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:text="家政上门"
-                  android:textSize="15dp" />
-          </LinearLayout>
-          <LinearLayout
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:gravity="center"
-              android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="小区介绍" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/home_iv_about_us"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/about_us" />
 
-              <ImageView
-                  android:id="@+id/home_iv_school"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:src="@mipmap/school" />
 
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:text="入学办理"
-                  android:textSize="15dp" />
-          </LinearLayout>
-          <LinearLayout
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:gravity="center"
-              android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="关于我们" />
+    </LinearLayout>
 
-              <ImageView
-                  android:id="@+id/home_iv_oldmanhome"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:src="@mipmap/oldmanhome" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:text="老人之家"
-                  android:textSize="15dp" />
-          </LinearLayout>
-          <LinearLayout
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:gravity="center"
-              android:orientation="vertical">
-
-              <ImageView
-                  android:id="@+id/home_iv_warning"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:src="@mipmap/warning" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:text="紧急呼叫"
-                  android:textSize="15dp" />
-          </LinearLayout>
-      </LinearLayout>-->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+</LinearLayout>
 </LinearLayout>

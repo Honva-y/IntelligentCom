@@ -6,16 +6,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:background="@color/colorPrimary"
         android:layout_height="@dimen/title_height">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:text="莱 福"
             android:gravity="center_vertical"
             android:textSize="20dp"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
-            android:background="@color/colorBlue"
+            />
+        <ImageView
+            android:id="@+id/topic_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/add"
+            android:padding="5dp"
             />
     </LinearLayout>
 </LinearLayout>

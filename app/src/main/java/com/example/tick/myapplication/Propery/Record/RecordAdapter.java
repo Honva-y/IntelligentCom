@@ -1,10 +1,12 @@
 package com.example.tick.myapplication.Propery.Record;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tick.myapplication.Propery.Entity.RecordEntity;
 import com.example.tick.myapplication.Propery.Record.ItemRecycle.IteamAdapter;
 import com.example.tick.myapplication.R;
 
@@ -13,10 +15,14 @@ import com.example.tick.myapplication.R;
  */
 public class RecordAdapter extends RecyclerView.Adapter<RecordViewHolder> {
     private RecordActivity myActivity;
-    private IteamAdapter adapter;
+    private RecordEntity entity;
+
     public RecordAdapter(RecordActivity myActivity) {
         this.myActivity = myActivity;
-        adapter = new IteamAdapter(myActivity);
+    }
+
+    public void update(RecordEntity entity) {
+        this.entity = entity;
     }
 
     @Override
@@ -30,12 +36,35 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder( RecordViewHolder holder, int position) {
-//        holder.myTest.setText(""+position);
+    public void onBindViewHolder(RecordViewHolder holder, int position) {
+        if (entity != null) {
+            if (entity.getPaymentVo().get(position) != null) {
+                //有数据
+                holder.type.setText(entity.getPaymentVo().get(position).getPaymenttype().getPaymenttype_name());
+                holder.fee.setText(entity.getPaymentVo().get(position).getPaymenttype().getPaymenttype_money()+"");
+                int year = entity.getPaymentVo().get(position).getPayment().getPayment_complettime().getYear()+1900;
+                int month = entity.getPaymentVo().get(position).getPayment().getPayment_complettime().getMonth()+1;
+                int date = entity.getPaymentVo().get(position).getPayment().getPayment_complettime().getDate();
+                holder.time.setText(year + "年" + month + "月" + date + "日");
+                holder.line.setVisibility(View.GONE);
+            }
+            else if(entity.getPaymentVo().get(position) == null){ //无数据，并且下一个vo为空，类型、费用隐藏；显示时间
+                holder.type.setVisibility(View.GONE);
+                holder.fee.setVisibility(View.GONE);
+                holder.time.setVisibility(View.GONE);
+                holder.line.setVisibility(View.VISIBLE);
+            }
+        } else {
+            Log.d("cccc", "onBindViewHolder: 不错");
+            return;
+        }
     }
 
     @Override
     public int getItemCount() {//固定返回3个月的缴费情况，查看更多进入网页
-        return 15;
+        if (entity != null && entity.getPaymentVo().size()!=0)
+            return entity.getPaymentVo().size();
+        else
+            return 0;
     }
 }

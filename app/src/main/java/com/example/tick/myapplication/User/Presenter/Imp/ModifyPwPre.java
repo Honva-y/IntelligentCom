@@ -25,12 +25,11 @@ public class ModifyPwPre implements UserListeren,UserPresenter {
 
     @Override
     public void onFailed() {
-        view.hideDialog();
+//        view.hideDialog();
     }
 
     @Override
     public void doModel(Object o, Object o2) {
-        view.showDialog("加载中...");
         model.doPost(o,o2,this);
     }
 }

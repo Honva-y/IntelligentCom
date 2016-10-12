@@ -21,6 +21,8 @@ public class TopicHolder extends RecyclerView.ViewHolder{
     public TextView date;
     public TextView zanList;
     public TextView commentList;
+    public ImageView delete;
+
     public TopicHolder(View itemView) {
         super(itemView);
 //        ButterKnife.bind(itemView);
@@ -31,6 +33,7 @@ public class TopicHolder extends RecyclerView.ViewHolder{
         date = (TextView) itemView.findViewById(R.id.topic_tv_date);
         zanList = (TextView) itemView.findViewById(R.id.topic_zan_list);
         commentList = (TextView) itemView.findViewById(R.id.topic_comment_list);
+        delete = (ImageView) itemView.findViewById(R.id.topic_delete);
         iv_comment = (ImageView) itemView.findViewById(R.id.topic_iv_comment);
         iv_clickZan = (ImageView) itemView.findViewById(R.id.topic_clickzan);
     }

@@ -22,7 +22,7 @@ import okhttp3.Response;
 /**
  * Created by Tick on 2016/9/26.
  */
-public class RepairModel implements MineModel{
+public class RepairModel implements MineModel {
     private OkHttpClient client;
 
     public RepairModel() {
@@ -33,27 +33,22 @@ public class RepairModel implements MineModel{
     public void doCheck(final Object o, final MineListener listener) {
         new Thread(new Runnable() {
             public void run() {
-                RequestBody body = new FormBody.Builder().add("user_id", String.valueOf(o)).build();
+                RequestBody body = new FormBody.Builder().add("repair_userid", String.valueOf(o)).build();
                 Request request = new Request.Builder().url(new MyData().getMyRepair()).post(body).build();
                 Call call = client.newCall(request);
                 call.enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                            listener.onFailed("网络出错");
+                        listener.onFailed("网络出错");
                     }
+
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String repair = response.body().string().toString();
-//                        Log.d("aaaa1", "onResponse: "+repair);
-                        BackRepair backRepair = new Gson().fromJson(repair,BackRepair.class);
+                        Log.d("aaaa1", "Repair: " + repair);
+                        BackRepair backRepair = new Gson().fromJson(repair, BackRepair.class);
                         //将数据转化成对象数组
-                        if (backRepair!=null) {
-                            listener.onSuccess(backRepair);
-                            Log.d("aaaa", "onResponse: back repair is not null");
-                        }
-        //                else {
-        //                    Log.d("aaaa", "onResponse: back repair is null");
-        //                }
+                        listener.onSuccess(backRepair);
                     }
                 });
             }

@@ -36,8 +36,10 @@ public class ModifyPwMod implements UserModel {
             public void run() {
                 String account = (String) ((HashMap) o).get("user_account");
                 String password = (String) ((HashMap) o).get("user_password");
-                RequestBody body = new FormBody.Builder().add("user_account", account).add("user_password", password).build();
-                Request request = new Request.Builder().url(new MyData().getModifyPwUrl()).post(body).build();
+//                Log.d("aaa", "account:"+account+",密码"+password);
+
+                RequestBody body = new FormBody.Builder().add("user_account", account+"").add("user_password", password).build();
+                Request request = new Request.Builder().url(new MyData().getForgetPwUrl()).post(body).build();
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -47,11 +49,9 @@ public class ModifyPwMod implements UserModel {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String json = response.body().string().toString();
-                        Log.d("aaaa", "onResponse: "+json);
-//                        response.close();
-
-//                        BackCode backCode = new Gson().fromJson(json,BackCode.class);
-//                        listeren.onSuccess(backCode, null);
+//                        Log.d("aaaa", "onResponse: "+json);
+                        BackCode backCode = new Gson().fromJson(json,BackCode.class);
+                        listeren.onSuccess(backCode, null);
                     }
                 });
             }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.util.SparseArray;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.example.tick.myapplication.Propery.Presenter.Imple.SuggestProperty;
 import com.example.tick.myapplication.Propery.Presenter.PropertyPersenter;
 import com.example.tick.myapplication.Propery.View.PropertyView;
 import com.example.tick.myapplication.R;
+import com.example.tick.myapplication.User.View.LoginActivity;
 import com.example.tick.myapplication.Utils;
 
 import butterknife.BindView;
@@ -51,6 +53,7 @@ public class SuggestActivity extends Activity implements PropertyView<BackCode>{
             Utils.showToast(this, "提交信息不能为空");
         }else {
             array.put(1,content.getText().toString());
+
             persenter.postMessage(array);
         }
     }
@@ -61,7 +64,8 @@ public class SuggestActivity extends Activity implements PropertyView<BackCode>{
         preferences = getSharedPreferences("userInfo",MODE_PRIVATE);
         array = new SparseArray();
         int user_id = preferences.getInt("user_id",0);
-        array.put(0,user_id);
+        array.put(0,LoginActivity.USER_ID);
+//        Log.d("aaaaa", "user_id: "+LoginActivity.USER_ID);
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("提交中...");
     }

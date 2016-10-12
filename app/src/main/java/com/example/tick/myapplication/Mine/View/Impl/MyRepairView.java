@@ -32,12 +32,11 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 /**
  * Created by Tick on 2016/9/26.
  */
-public class MyRepairView extends Activity implements MineView{
+public class MyRepairView extends Activity implements MineView {
     private ProgressDialog pDialog;
     private String user_id;
     private RepairPresenter presenter;
     private RepairAdapter adapter;
-    private List<BackRepair.RepairBean> repair;
     private BackRepair backRepair;
     @BindView(R.id.mine_repair_ptr)
     PtrFrameLayout ptrFramentLayout;
@@ -45,6 +44,7 @@ public class MyRepairView extends Activity implements MineView{
     TextView tv_title;
     @BindView(R.id.mine_repair_recycleview)
     RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,8 @@ public class MyRepairView extends Activity implements MineView{
         ButterKnife.bind(this);
         initView();
     }
-    void initView(){
+
+    void initView() {
         //添加标题
         tv_title.setText(getIntent().getStringExtra("title"));
         user_id = getIntent().getStringExtra("userid");
@@ -119,23 +120,27 @@ public class MyRepairView extends Activity implements MineView{
     @Override
     public void showSuccess(Object o) {
         backRepair = (BackRepair) o;
-        repair = ((BackRepair)o).getRepair();
         Message message = new Message();
         message.what = backRepair.getSendCode().getCode();
-        message.obj = backRepair.getRepair();
-        Log.d("bbbb", "showSuccess: "+backRepair.getRepair().size()+","+backRepair.getRepair().get(0).getRepair_project());
+        message.obj = backRepair.getSendCode().getMessage();
+        if (backRepair.getRepair().size() == 0) {
+            message.arg1 = 1;//表示没维修信息
+        }
         handler.sendMessage(message);
-//        adapter.updataData(repair);
     }
-    Handler handler = new Handler(){
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what==1){
-                adapter.updataData((List<BackRepair.RepairBean>) msg.obj);
-//                Log.d("aaaa", "handleMessage: handeler");
-            }else {
-                Utils.showToast(MyRepairView.this,"网络异常");
+            if (msg.what == 0) {
+                Utils.showToast(MyRepairView.this, msg.obj.toString());
+//                adapter.updataData(backRepair);
+            } else {
+                if (msg.arg1 == 1)
+                    Utils.showToast(MyRepairView.this, "空空如也~");
+                else
+                    adapter.updataData(backRepair);
             }
         }
     };
@@ -144,5 +149,10 @@ public class MyRepairView extends Activity implements MineView{
     public void doPresenter(Object o) {
         presenter.postUser(o.toString());
         showDialog();
+    }
+
+    @Override
+    public void BackData(Object o, Object o2) {
+
     }
 }

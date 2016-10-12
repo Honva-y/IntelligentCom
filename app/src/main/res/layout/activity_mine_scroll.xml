@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/many_color_clickl"
-        android:padding="10dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/mine_iv_usericon"
@@ -23,10 +24,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7"
+            android:background="@drawable/many_color_clickl"
             android:gravity="center_vertical"
             android:padding="15dp"
             android:text=""
-            android:background="@drawable/many_color_clickl"
             android:textSize="@dimen/text_small_size" />
 
     </LinearLayout>
@@ -39,8 +40,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/many_color_clickl">
 
         <TextView
@@ -49,9 +50,9 @@
             android:layout_weight="3"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:textSize="@dimen/text_normal_size"
             android:paddingRight="10dp"
-            android:text="用户类型" />
+            android:text="用户类型"
+            android:textSize="@dimen/text_normal_size" />
 
         <TextView
             android:id="@+id/mine_tv_user_type"
@@ -73,8 +74,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/many_color_clickl">
 
         <TextView
@@ -116,8 +117,8 @@
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:textSize="@dimen/text_normal_size"
-            android:text="性  别" />
+            android:text="性  别"
+            android:textSize="@dimen/text_normal_size" />
 
         <TextView
             android:id="@+id/mine_tv_user_sex"
@@ -241,8 +242,8 @@
         android:id="@+id/mine_ll_mysuggest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/many_color_clickl"
-        >
+        android:background="@drawable/many_color_clickl">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -252,6 +253,7 @@
             android:paddingRight="10dp"
             android:text="我的建议"
             android:textSize="@dimen/text_normal_size" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -275,8 +277,8 @@
         android:id="@+id/mine_ll_myrepair"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/many_color_clickl"
-        >
+        android:background="@drawable/many_color_clickl">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -286,6 +288,7 @@
             android:paddingRight="10dp"
             android:text="我的修理"
             android:textSize="@dimen/text_normal_size" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -305,34 +308,34 @@
         android:layout_height="1dp"
         android:background="@color/colorLine" />
     <!--<LinearLayout-->
-        <!--android:id="@+id/mine_ll_completeinfo"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/many_color_clickl"-->
-        <!--&gt;-->
-        <!--<TextView-->
-            <!--android:id="@+id/mine_tv_user_completeinfo"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="3"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:paddingRight="10dp"-->
-            <!--android:text="信息未完善"-->
-            <!--android:textColor="@color/colorRed"-->
-            <!--android:textSize="@dimen/text_normal_size" />-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="7"-->
-            <!--android:gravity="right|center_vertical"-->
-            <!--android:paddingRight="20dp">-->
+    <!--android:id="@+id/mine_ll_completeinfo"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/many_color_clickl"-->
+    <!--&gt;-->
+    <!--<TextView-->
+    <!--android:id="@+id/mine_tv_user_completeinfo"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="3"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:text="信息未完善"-->
+    <!--android:textColor="@color/colorRed"-->
+    <!--android:textSize="@dimen/text_normal_size" />-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="7"-->
+    <!--android:gravity="right|center_vertical"-->
+    <!--android:paddingRight="20dp">-->
 
-            <!--<ImageView-->
-                <!--android:layout_width="20dp"-->
-                <!--android:layout_height="20dp"-->
-                <!--android:src="@mipmap/more" />-->
-        <!--</LinearLayout>-->
+    <!--<ImageView-->
+    <!--android:layout_width="20dp"-->
+    <!--android:layout_height="20dp"-->
+    <!--android:src="@mipmap/more" />-->
+    <!--</LinearLayout>-->
     <!--</LinearLayout>-->
 
     <ImageView
@@ -343,15 +346,15 @@
     <LinearLayout
         android:id="@+id/mine_ll_logout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/many_color_clickl"
             android:gravity="center_vertical"
-            android:paddingRight="10dp"
             android:paddingLeft="20dp"
+            android:paddingRight="10dp"
             android:text="注销"
             android:textSize="@dimen/text_normal_size" />
 
@@ -373,15 +376,20 @@
         android:layout_weight="6"
         android:paddingTop="20dp">
 
-        <Button
+        <com.andexert.library.RippleView
             android:id="@+id/mine_ll_exit"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/button_corners_blue"
-            android:text="退出"
-            android:textColor="@color/white"
-            android:textSize="@dimen/button_text_size" />
+            app:rv_rippleDuration="150">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_corners_blue"
+                android:text="退出"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size" />
+        </com.andexert.library.RippleView>
     </LinearLayout>
 </LinearLayout>

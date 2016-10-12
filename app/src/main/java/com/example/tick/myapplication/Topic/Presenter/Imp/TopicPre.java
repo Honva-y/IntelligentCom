@@ -66,4 +66,9 @@ public class TopicPre implements TopicListeren, TopicPresenter {
         model.onComment(user_id,topic_id,mess,this);
     }
 
+    @Override
+    public void doDelete(int user_id,int topic_id) {
+        model.onDelete(user_id,topic_id,this);
+    }
+
 }

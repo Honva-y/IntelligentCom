@@ -19,6 +19,7 @@ import com.example.tick.myapplication.MyView.ClearEditText;
 import com.example.tick.myapplication.R;
 import com.example.tick.myapplication.User.Entity.MessageCode;
 import com.example.tick.myapplication.User.Entity.UserEntity;
+import com.example.tick.myapplication.User.Model.Imp.ForgetPwMod;
 import com.example.tick.myapplication.User.Presenter.Imp.ForgetPwPre;
 import com.example.tick.myapplication.User.Presenter.UserPresenter;
 import com.example.tick.myapplication.User.View.UserView;
@@ -71,16 +72,12 @@ public class ForgetPwActivity extends Activity implements UserView {
     @OnClick(R.id.forgetpw_bt_getpw)
     void onFindAccount() {
         if (isRightPhoto() && isRightCode()) {
-//            HashMap map = new HashMap();
-//            map.put("user_account", et_photo.getText().toString().trim());
             user_account = et_photo.getText().toString().trim();
             if (VerificationCode != Integer.parseInt(et_code.getText().toString().trim())) {
                 Utils.showToast(ForgetPwActivity.this, "验证码错误");
                 et_code.requestFocus();
                 et_code.setText("");
             } else {
-                /////////////////////需要重新设置页面再进行网络请求
-//                presenter.doModel(user_account, GETPW);
                 startActivity(new Intent(ForgetPwActivity.this, ModifyPwView.class).putExtra("title", "修改密码").putExtra("user_account", user_account));
                 Utils.showToast(ForgetPwActivity.this, "验证码正确");
                 finish();
@@ -92,7 +89,7 @@ public class ForgetPwActivity extends Activity implements UserView {
     @OnClick(R.id.forgetpw_bt_getcode)
     void onGetCode() {
         if (isRightPhoto()) {
-            presenter.doModel(et_photo.getText().toString().trim(), GETCODE);
+            presenter.doModel(et_photo.getText().toString().trim(), ForgetPwMod.ISEXIT);
             et_code.requestFocus();
         }
     }
@@ -140,18 +137,19 @@ public class ForgetPwActivity extends Activity implements UserView {
     @Override
     public void onShowMess(Object o, Object o2) {
         Message message = new Message();
-        if ((int) o2 == GETCODE) {//获取验证码操作
+        if ((int) o2 == ForgetPwMod.GETCODE) {//获取验证码操作
             MessageCode backCode = (MessageCode) o;
             message.what = backCode.getSendCode().getCode();//确认码
             message.obj = backCode.getSendCode().getMessage();//确认码信息
             message.arg1 = GETCODE;//标记操作
             message.arg2 = Integer.parseInt(backCode.getNumber());//验证码
-        } else if ((int) o2 == GETPW) {//忘记密码操作
+        }else if((int)o2== ForgetPwMod.ISEXIT){
             BackCode backCode = (BackCode) o;
-            message = new Message();
-            message.what = backCode.getCode();//确认码
-            message.obj = backCode.getMessage();//确认信息
-            message.arg1 = GETPW;//验证码
+            if(backCode.getCode()==1){
+                message.what=2;//用户存在
+            }else if(backCode.getCode()==0){
+                message.what=3;//用户不存在
+            }
         }
         handler.sendMessage(message);
     }
@@ -160,17 +158,16 @@ public class ForgetPwActivity extends Activity implements UserView {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Log.d("aaaaa", "handle.....what:" + msg.what);
             if (msg.what == 0) {//请求码失败
                 Utils.showToast(ForgetPwActivity.this, msg.obj.toString());
             }
-//            else if (msg.what == 1 && String.valueOf(msg.obj).contains("密码")) {//请求码正确  ,跳转到修改密码界面
-//                startActivity(new Intent(ForgetPwActivity.this, ModifyPwView.class).putExtra("title", "修改密码").putExtra("user_account", user_account));
-//                finish();
-//            }
             else if (msg.what == 1 && String.valueOf(msg.obj).contains("短信") && msg.arg1 == GETCODE) {//请求码正确,不做处理
                 VerificationCode = msg.arg2;
                 Utils.showToast(ForgetPwActivity.this, "发送短信成功");
+            }else if(msg.what==2){
+                presenter.doModel(et_photo.getText().toString().trim(), ForgetPwMod.GETCODE);
+            }else if(msg.what==3){
+                Utils.showToast(ForgetPwActivity.this,"用户不存在");
             }
         }
     };

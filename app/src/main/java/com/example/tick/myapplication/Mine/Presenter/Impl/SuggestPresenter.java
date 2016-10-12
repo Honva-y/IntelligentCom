@@ -31,8 +31,16 @@ public class SuggestPresenter implements MineListener, MinePresenter {
     }
 
     @Override
+    public void backDate(Object o, Object o2) {
+
+    }
+
+    @Override
     public void postUser(Object o) {
         model.doCheck(o, this);
 //        view.showDialog();
     }
+
+
+
 }

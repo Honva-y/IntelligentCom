@@ -26,8 +26,8 @@ import okhttp3.Response;
  */
 public class ForgetPwMod implements UserModel {
     private OkHttpClient client;
-    private static final int GETCODE = 0;
-    private static final int GETPW = 1;
+    public static final int GETCODE = 0;
+    public static final int ISEXIT = 1;
     private Request request;
 
     public ForgetPwMod() {
@@ -53,38 +53,33 @@ public class ForgetPwMod implements UserModel {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String json = response.body().string().toString();
-                            Log.d("aaaa", "json: "+json);
                             MessageCode backCode = new Gson().fromJson(json,MessageCode.class);
-//                            Log.d("aaaa", "onResponse: "+backCode.getSendCode().getCode());
                             listeren.onSuccess(backCode,GETCODE);
                         }
                     });
-                }else if((int)o2==GETPW){//提交新密码
+                }
+                else if((int)o2==ISEXIT){//提交是否存在
                   new Thread(new Runnable() {
                       @Override
                       public void run() {
-                          RequestBody body = new FormBody.Builder().add("user_account", String.valueOf(((HashMap)o).get("user_account"))).add("user_password",String.valueOf(((HashMap)o).get("user_password"))).build();//手机号码，验证码
-                          request = new Request.Builder().url(new MyData().getForgetPwUrl()).post(body).build();
+                          RequestBody body = new FormBody.Builder().add("user_account", o.toString()).build();//手机号码，验证码
+                          request = new Request.Builder().url(new MyData().getIsExite()).post(body).build();
                           Call call = client.newCall(request);
                           call.enqueue(new Callback() {
                               @Override
                               public void onFailure(Call call, IOException e) {
                                   listeren.onFailed();
                               }
-
                               @Override
                               public void onResponse(Call call, Response response) throws IOException {
                                   String json = response.body().string().toString();
-                                  Log.d("aaaa", "json: "+json);
+                                  Log.d("aaaaaaa", "onResponse: "+json);
                                   BackCode backCode = new Gson().fromJson(json,BackCode.class);
-                                  Log.d("aaaa", "onResponse: "+backCode.getCode());
-                                  listeren.onSuccess(backCode,GETPW);
-//                        response.close();
+                                  listeren.onSuccess(backCode,ISEXIT);
                               }
                           });
                       }
                   }).start();
-
                 }
 
             }

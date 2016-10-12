@@ -6,8 +6,8 @@ import android.app.Application;
  * Created by Tick on 2016/9/20.
  */
 public class MyData extends Application {
-        private String BaseUrl = "http://10.0.2.2:8080/LaiFuCommunity";
-//    private String BaseUrl = "http://192.168.191.1:8080/LaiFuCommunity";//真机测试ip
+//        private String BaseUrl = "http://10.0.2.2:8080/LaiFuCommunity";
+    private String BaseUrl = "http://192.168.191.1:8080/LaiFuCommunity";//真机测试ip
     private String RegisterUrl = BaseUrl + "/Android/user/register";//用户注册地址
     private String ForgetPwUrl = BaseUrl + "/Android/user/forgetPassword";//用户忘记密码地址
     private String LoginUrl = BaseUrl + "/Android/user/login";//用户登录地址
@@ -20,14 +20,48 @@ public class MyData extends Application {
     private String MySuggest = BaseUrl + "/Android/property/getComplains";//投诉建议列表
     private String MyRepair = BaseUrl + "/Android/property/getRepair";//我的修理列表
     private String GetCode = BaseUrl + "/Android/user/getSMS";//获取验证码
-    private String TopicURL = BaseUrl + "/Android/user/topic/0/5/getTopicList?communityTopic=1";//获取小区话题数据?communityTopic=1
+    private String TopicURL = BaseUrl + "/Android/user/topic/0/5/getTopicList?communityTopic=2";//获取小区话题数据?communityTopic=1
     private String TopicSecondURL = BaseUrl + "";//获取小区二手数据
     private String TopicClickZan = BaseUrl + "/Android/user/topic/";//点赞数据传输
     private String TopicCancleZan = BaseUrl + "/Android/user/topic/";//取消赞
-    private String TopicComment = BaseUrl + "";//小区话题评论
-    private String Financial = BaseUrl + "";//缴费记录
+    private String TopicComment = BaseUrl + "/Android";//小区话题评论
+    private String TopicDelete = BaseUrl + "/Android";//小区话题删除
+    private String TopicAdd = BaseUrl + "/Android/addTopic";//小区话题添加
+    private String Financial = BaseUrl + "/Android/property/getPayment";//缴费记录
+    private String UserFee = BaseUrl + "/Android/property/getNotPayment";//用户缴费信息
+    private String UserDoFee = BaseUrl + "";//用户缴费提交
     private String CompleteInfo = BaseUrl + "/Android/user/completeInfor";//完善信息
-    private String ModifyPwUrl = BaseUrl + "";//修改密码，不需要提供旧密码
+    private String IsExite = BaseUrl+"/Android/user/exitAccount";
+    private String AboutUs = BaseUrl+"/about_us_phone";
+    private String Introduction = BaseUrl+"/introduce";
+
+    public String getIntroduction() {
+        return Introduction;
+    }
+
+    public String getAboutUs() {
+        return AboutUs;
+    }
+
+    public String getIsExite() {
+        return IsExite;
+    }
+
+    public String getUserFee() {
+        return UserFee;
+    }
+
+    public String getUserDoFee() {
+        return UserDoFee;
+    }
+
+    public String getTopicAdd() {
+        return TopicAdd;
+    }
+
+    public String getTopicDelete() {
+        return TopicDelete;
+    }
 
     public String getCompleteInfo() {
         return CompleteInfo;
@@ -57,9 +91,6 @@ public class MyData extends Application {
         return Financial;
     }
 
-    public String getModifyPwUrl() {
-        return ModifyPwUrl;
-    }
 
     public String getRegisterUrl() {
         return RegisterUrl;

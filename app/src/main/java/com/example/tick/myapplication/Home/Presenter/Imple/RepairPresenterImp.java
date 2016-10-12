@@ -42,15 +42,15 @@ public class RepairPresenterImp implements HomePresenter {
         final String start_time = entity.getRepair_starttime();
         final String end_time = entity.getRepair_endtime();
         final int user_id = entity.getRepair_userid();
-        Log.d("aaaaaaaa", "setReapirDate: " + repairMess);
+//        Log.d("aaaaaaaa", "setReapirDate: " + repairMess);
         new Thread(new Runnable() {
             final Message message = new Message();
             @Override
             public void run() {
                 try {
 //                    RequestBody body = RequestBody.create(MediaType.parse("application/json"), repairMess);
-                    RequestBody body = new FormBody.Builder().add("repair_endtime",end_time)
-                            .add("repair_starttime",start_time)
+                    RequestBody body = new FormBody.Builder().add("endtime",end_time)
+                            .add("starttime",start_time)
                             .add("repair_userid",user_id+"")
                             .add("repair_project",project).build();
                     Request request = new Request.Builder().url(new MyData().getRepairUrl()).post(body).build();
@@ -63,6 +63,8 @@ public class RepairPresenterImp implements HomePresenter {
                         }
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
+                            String json = response.body().string().toString();
+//                            Log.d("aaaaa", "onResponse: "+json);
                             message.what = SUCCESS;
                             view.repairHandler.sendMessage(message);
                         }

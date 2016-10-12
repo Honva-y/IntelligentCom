@@ -31,6 +31,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.traex.rippleeffect:library:1.3'//涟漪效果
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'//material design etittext
     compile files('libs/baidumapapi_map_v4_0_0.jar')
     compile files('libs/baidumapapi_util_v4_0_0.jar')
     compile files('libs/baidumapapi_base_v4_0_0.jar')

@@ -22,9 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tick.myapplication.Home.Entity.RepairEntity;
+import com.example.tick.myapplication.Home.HomeActivity;
 import com.example.tick.myapplication.Home.Presenter.Imple.RepairPresenterImp;
 import com.example.tick.myapplication.R;
 import com.example.tick.myapplication.User.Entity.UserId;
+import com.example.tick.myapplication.User.View.LoginActivity;
 import com.example.tick.myapplication.Utils;
 
 import java.util.Calendar;
@@ -112,7 +114,7 @@ public class RepairActivity extends Activity implements DialogInterface.OnKeyLis
             entity.setRepair_starttime(startTime);
             entity.setRepair_endtime(endTime);
             entity.setRepair_project(et_content.getText().toString());
-            entity.setRepair_userid(UserId.getInstance().getUser_id());
+            entity.setRepair_userid(LoginActivity.USER_ID);
             presenter.postRepairData(entity);
             pDialog.show();
         }

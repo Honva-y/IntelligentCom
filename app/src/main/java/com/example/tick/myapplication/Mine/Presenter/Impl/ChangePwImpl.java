@@ -12,7 +12,7 @@ import com.example.tick.myapplication.Mine.View.MineView;
 /**
  * Created by Tick on 2016/9/19.
  */
-public class ChangePwImpl implements MinePresenter<SparseArray>,MineListener<BackCode> {
+public class ChangePwImpl implements MinePresenter,MineListener {
     private MineView mineView;
     private MineModel mineModel;
     public ChangePwImpl(MineView mineView) {
@@ -21,7 +21,7 @@ public class ChangePwImpl implements MinePresenter<SparseArray>,MineListener<Bac
     }
 
     @Override
-    public void onSuccess(BackCode backCode) {
+    public void onSuccess(Object backCode) {
         mineView.hideDialog();
         mineView.showSuccess(backCode);
     }
@@ -33,8 +33,17 @@ public class ChangePwImpl implements MinePresenter<SparseArray>,MineListener<Bac
     }
 
     @Override
-    public void postUser(SparseArray array) {
+    public void backDate(Object o, Object o2) {
+
+    }
+
+
+    @Override
+    public void postUser(Object array) {
         mineView.showDialog();
         mineModel.doCheck(array,this);
     }
+
+
+
 }

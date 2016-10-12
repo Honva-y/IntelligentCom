@@ -115,7 +115,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
 
     }
     public void addShakeAnimation(){
-        this.startAnimation(shakeAnimation(5));
+        this.startAnimation(shakeAnimation(10));
     }
     /**
      * 设置晃动动画，count一秒晃动的次数

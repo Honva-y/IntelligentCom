@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 
 import com.example.tick.myapplication.GlobalValue.MyData;
 import com.example.tick.myapplication.Mine.Entity.BackCode;
+import com.example.tick.myapplication.Mine.Entity.BackUserhead;
 import com.example.tick.myapplication.Mine.Presenter.Impl.MineImpl;
 import com.example.tick.myapplication.Mine.Presenter.MinePresenter;
 import com.example.tick.myapplication.Mine.View.Impl.MyRepairView;
@@ -77,6 +79,7 @@ public class MineActivity extends Fragment implements MineView{
     private MinePresenter presenter;
     private SharedPreferences sharedPreferences;
     private int user_id;
+    private String user_head;
     private String nickname;
     private SparseArray array;
     private String imagePaht;
@@ -107,6 +110,7 @@ public class MineActivity extends Fragment implements MineView{
         tv_userCommunity.setText(sharedPreferences.getString("user_community", ""));
         tv_userEmail.setText(sharedPreferences.getString("user_email", ""));
         user_id = sharedPreferences.getInt("user_id", 0);
+        user_head = sharedPreferences.getString("user_head","");
 //        docheckInfo(sharedPreferences.getString("user_card", ""), sharedPreferences.getString("user_approver", ""));
         Picasso.with(getActivity()).load(new MyData().getBaseUrl() + sharedPreferences.getString("user_head", ""))//加载头像
                 .placeholder(R.mipmap.head)
@@ -202,9 +206,9 @@ public class MineActivity extends Fragment implements MineView{
                 onTakePhoto();
                 alertDialog.dismiss();
                 array.clear();
-                array.put(0, 1);//修改头像
-                array.put(1, user_id);
-                array.put(2, getImagePaht());
+                array.put(0, 1);//拍照图片传入
+                array.put(1, user_id);//用户id
+                array.put(2, getImagePaht());//拍照图片路径
                 presenter.postUser(array);
             }
         });
@@ -220,10 +224,12 @@ public class MineActivity extends Fragment implements MineView{
 
     public void uploadUserHead() {
         array.clear();
-        array.put(0, 1);//修改头像
+        array.put(0, 1);//选择图片修改头像
         array.put(1, user_id);
         array.put(2, getImagePaht());
-//        presenter.postUser(array);
+        array.put(3,user_head);//头像路径
+        Log.d("aaaaa1", "onClick: "+user_head);
+        presenter.postUser(array);
     }
 
     public void setUsericon(Bitmap bitmap) {  //设置头像
@@ -287,6 +293,18 @@ public class MineActivity extends Fragment implements MineView{
     @Override
     public void doPresenter(Object o) {
 
+    }
+
+    @Override
+    public void BackData(Object o, Object o2) {//后台返回的数据
+        BackUserhead back = (BackUserhead) o;
+        if(back!=null) {
+            if (back.getSendCode().getCode() == 1) {
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE).edit();
+                editor.putString("user_head", back.getUser_head());
+                editor.commit();
+            }
+        }
     }
 
 

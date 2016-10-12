@@ -9,4 +9,5 @@ public interface MineView <T,V>{
     void showError();
     void showSuccess(T t);
     void doPresenter(V v);
+    void BackData(T t,V v);
 }

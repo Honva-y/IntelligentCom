@@ -81,6 +81,8 @@ public class TopicFragment extends Fragment implements TopicView {
 
     private void initPtrFrameLayout() {
         StoreHouseHeader header = new StoreHouseHeader(getActivity());
+//        View view = LayoutInflater.from(getContext()).inflate(R.layout.topic_top_community_info,null);
+//        StoreHouseHeader header = new StoreHouseHeader(view);
         header.setPadding(0, PtrLocalDisplay.dp2px(15), 0, 0);
         header.setTextColor(getResources().getColor(R.color.colorBlue));
         header.initWithString("LAIFU");
@@ -122,7 +124,7 @@ public class TopicFragment extends Fragment implements TopicView {
 
     @Override
     public void hideDialog() {
-        pDialog.dismiss();
+//        pDialog.dismiss();
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.tick.myapplication.MainActivity;
+import com.example.tick.myapplication.Mine.Entity.BackCode;
 import com.example.tick.myapplication.Mine.Presenter.Impl.ChangePwImpl;
 import com.example.tick.myapplication.Mine.Presenter.MinePresenter;
 import com.example.tick.myapplication.Mine.View.MineView;
@@ -116,15 +117,22 @@ public class ChangePasswordActivity extends Activity implements MineView{
     }
 
     @Override
-    public void showSuccess(Object backCode) {
-        new AlertDialog.Builder(ChangePasswordActivity.this).setMessage("修改成功，请重新登陆").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                task.removeAll();
-            }
-        }).show();
+    public void BackData(Object o, Object o2) {
 
+    }
+
+    @Override
+    public void showSuccess(Object backCode) {
+        BackCode backCode1 = (BackCode) backCode;
+        if(((BackCode) backCode).getCode()==1) {
+            new AlertDialog.Builder(ChangePasswordActivity.this).setMessage("修改成功，请重新登陆").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    task.removeAll();
+                }
+            }).show();
+        }
     }
     @Override
     protected void onDestroy() {
